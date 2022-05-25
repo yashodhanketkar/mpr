@@ -1,0 +1,19 @@
+.form-control {
+  font-size: medium;
+  font-weight: 500;
+}
+
+#dataset-label, #model-label, #performance-button {
+  margin-top: 8px;
+  font-size: medium;
+}
+
+#performance-select, #cross-performance-select-model, #cross-performance-select-data {
+  width: 50%;
+}
+
+#chart-embed {
+  width: 80%;
+  height: 50%;
+  background: white;
+}

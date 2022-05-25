@@ -1,0 +1,48 @@
+.form-control {
+  font-size: medium;
+  font-weight: 500;
+}
+
+#dataset-label, #model-label, #predict-button {
+  margin-top: 8px;
+  font-size: medium;
+}
+
+#upload {
+  display: none;
+}
+
+#file-input {
+  padding: 0px;
+}
+
+#predictions {
+  font-size: medium;
+  font-weight: 700;
+}
+
+#prediction-results {
+  width: 50%;
+}
+
+#prediction-heads {
+  background-color: #eaeaea;
+}
+
+#prediction-heads:hover {
+  background-color: #eaeaea80;
+  font-size: 17px;
+  /* color: white; */
+}
+
+#result:hover {
+  font-weight: 700;
+}
+
+#key {
+  width: 20%;
+}
+
+#cross-performance-select {
+  width: 50%;
+}

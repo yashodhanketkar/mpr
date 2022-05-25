@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}Cross Performance{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/performance.css') }}">
+  <script src="{{ url_for('static', filename='scripts/cross_performance.js') }}"></script>
+{% endblock %}
+{% block content %}
+  <div class="container-fluid" id="heading">
+    <h1>Cross Performance</h1>
+  </div>
+  <div class="container-fluid" id="main-content">
+    <div id="chart">
+      <embed
+        id="chart-embed"
+        type="image/svg+xml"
+        src="{{ cross_performance_plot|safe }}">
+    </div>
+  </div>
+{% endblock %}
+{% block sidebar %}
+  <p>
+    The graph is showing comparative performance of the model for two datasets.
+  </p>
+{% endblock %}

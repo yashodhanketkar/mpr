@@ -1,0 +1,17 @@
+#file-input {
+  padding: 0px;
+}
+
+#file-input input::file-selector-button {
+  display: none;
+}
+
+#selected-model {
+  margin: 5px 0px 5px 5px;
+  font-size: medium;
+}
+
+#dataset-label {
+  margin-top: 8px;
+  font-size: medium;
+}

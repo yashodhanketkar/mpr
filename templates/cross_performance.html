@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}Cross Performance{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/performance.css') }}">
+  <script src="{{ url_for('static', filename='scripts/cross_performance.js') }}"></script>
+{% endblock %}
+{% block content %}
+  <div class="container-fluid" id="heading">
+    <h1>Cross Performance</h1>
+  </div>
+  <div class="container-fluid" id="main-content">
+    <form action="http://localhost:5000/cross_performance/display" method="post">
+      <label class="badge badge-secondary" id="model-label">Please select model: </label> <br>
+      <select name="model" class="form-control" id="cross-performance-select-model">
+        <option value="empty" selected hidden>Choose here</option>
+        {% for models in model_list %}
+        <optgroup label="{{ models[0] }}">
+        {% for model in models[1] %}
+        <option value="{{ (models[0], model) }}">{{ model }}</option>
+        {% endfor %}
+        </optgroup>
+        {% endfor %}
+      </select>
+      <label class="badge badge-secondary" id="dataset-label">Please select two datasets: </label> <br>
+      <select name="dataset" class="form-control" id="cross-performance-select-data" multiple>
+        <option value="empty" selected hidden>Choose here</option>
+        {% for data in data_list %}
+        <option value="{{ data }}">{{ data }}</option>
+        {% endfor %}
+      </select>
+      <input type="submit" class="btn btn-secondary" id="performance-button">
+    </form>
+  </div>
+{% endblock %}
+{% block sidebar %}
+  <p>
+    Select number of items based on following instructions.
+    <ul>
+      <li>One item from the provided model list.</li>
+      <li>Two items from the provided dataset list.</li>
+    </ul>
+    Comparative performance charts will be drawn for selected objects.
+  </p>
+{% endblock %}

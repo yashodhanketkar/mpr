@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}Selector{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/selector.css') }}">
+{% endblock %}
+{% block content %}
+  <div class="container-fluid" id="heading">
+    <h1>Selector</h1>
+  </div>
+  <div class="container-fluid" id="main-content">
+    <!-- (Models used DT, KNN , RF, MLP, SVM) -->
+    <form action="http://localhost:5000/selector/upload" method="POST" enctype="multipart/form-data" id="selector-form">
+      <div class="container-fluid" id="file-input">
+        <label class="badge badge-secondary" id="dataset-label">Please upload dataset: </label><br>
+        <input name="file" class="btn btn-light btn-lg" type="file" onchange="this.form.submit()">
+      </div>
+    </form>
+  </div>
+{% endblock %}
+{% block sidebar %}
+  <p>Please upload previous records/datasets in csv format. This data will be used to train and select best model.</p>
+{% endblock %}

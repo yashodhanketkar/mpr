@@ -1,0 +1,8 @@
+.env/
+__pycache__/
+.vscode/
+instance/
+model/
+static/data/
+static/test/
+desktop.ini
