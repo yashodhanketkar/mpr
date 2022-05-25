@@ -1,2 +1,3 @@
 FLASK_APP=app.__main__.py
-FLASK_ENV=development
+# FLASK_APP = app
+FLASK_ENV = development
