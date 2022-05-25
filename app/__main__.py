@@ -7,6 +7,8 @@ This module handles web pages
 import ast
 import json
 import os
+import pathlib
+import sqlite3
 
 import pygal
 from flask import (
@@ -23,10 +25,14 @@ from werkzeug.utils import secure_filename
 
 from app import api
 
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+APP_DIR = os.path.abspath(os.path.dirname(__file__))
+
+BASE_DIR = os.path.join(pathlib.Path(__file__).parent.parent.resolve())
 MODELS_FOLDER = os.path.join(BASE_DIR, "model")
-UPLOAD_FOLDER = os.path.join(BASE_DIR, "static/data")
-TEST_FOLDER = os.path.join(BASE_DIR, "static/test")
+
+# MODELS_FOLDER = os.path.join(APP_DIR, "model")
+UPLOAD_FOLDER = os.path.join(APP_DIR, "static/data")
+TEST_FOLDER = os.path.join(APP_DIR, "static/test")
 for _FOLDER in (UPLOAD_FOLDER, TEST_FOLDER):
     if not os.path.isdir(_FOLDER):
         os.mkdir(_FOLDER)
@@ -100,7 +106,7 @@ def get_stored_data(req_dir):
         data_dirs (path): Path to sub-directories or files present in
                           requested directory
     """
-    up_dir = os.path.join(BASE_DIR, "static")
+    up_dir = os.path.join(APP_DIR, "static")
     abs_path = os.path.join(up_dir, req_dir)
     data_dirs = dir_listing(abs_path)
     return data_dirs
@@ -121,7 +127,6 @@ def plot_performance(data, is_cross_performance=False):
     dataset_name = ""
     names_list = []
     performance_list = []
-    print(data)
     if is_cross_performance:
         metrics = ["accuracy", "f1", "precision", "recall", "roc", "pred_time"]
     else:
@@ -200,6 +205,7 @@ def predictor():
         model_list = get_best_model()
         data_list = get_stored_data("test")
         return render_template("predictor.html", data_list=data_list, model_list=model_list)
+    print('unauth')
     return unauth()
 
 

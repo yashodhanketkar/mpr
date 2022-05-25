@@ -36,34 +36,16 @@ def convert_to_dual_class(multiclass_value):
     return dual_class_value
 
 
-def make_models():
+def make_models(spec=None):
     """This function makes the models
 
     Returns:
         models (list): The list of tuple of model name and model
     """
-    models = []
+    if spec is None:
+        with open(r"app\lib\parameters\default_models.sav", "rb") as model_file:
+            models = pickle.load(model_file)
 
-    knn_clf = KNeighborsClassifier(n_neighbors=3)
-    models.append(("KNN", knn_clf))
-
-    # dt_clf = DecisionTreeClassifier(criterion="entropy", random_state=15)
-    # models.append(("DT", dt_clf))
-
-    # mlp_clf = MLPClassifier(
-    #     hidden_layer_sizes=(32, 32, 16),
-    #     batch_size=32,
-    #     beta_1=0.6,
-    #     beta_2=0.5,
-    #     epsilon=1e-4,
-    # )
-    # models.append(("MLP", mlp_clf))
-
-    # rf_clf = RandomForestClassifier(n_estimators=200, criterion="entropy", verbose=0.1, n_jobs=-1)
-    # models.append(("RF", rf_clf))
-
-    # svm_clf = SVC(kernel="rbf", C=10, gamma="scale", tol=1e-12, break_ties=True, random_state=15)
-    # models.append(("SVM", svm_clf))
     return models
 
 
