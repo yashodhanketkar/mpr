@@ -19,17 +19,6 @@
       </thead>
       <tbody>
         {% for key, value in predictions.items() %}
-        <!-- {% if value == 'present' %}
-        <tr class="table-danger" id="result">
-        <td id="key">{{ key }}</td>
-        <td id="value">{{ value }}</td>
-        </tr>
-        {% else %}
-        <tr class="table-light" id="result">
-        <td id="key">{{ key }}</td>
-        <td id="value">{{ value }}</td>
-        </tr>
-        {% endif %} -->
         {% if value == 'present' %}
         <tr class="table-danger" id="result">
         <td id="key">{{ key }}</td>

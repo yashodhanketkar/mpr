@@ -29,7 +29,7 @@
   </head>
   <body>
   <div class="sidenav">
-    <a href="http://localhost:5000/home">Home</a>
+    <a href="http://localhost:5000/">Home</a>
     <a href="http://localhost:5000/selector">Selector</a>
     <a href="http://localhost:5000/predictor">Predictor</a>
     <a href="http://localhost:5000/performance">Performance</a>
@@ -48,9 +48,13 @@
   <div class="container-fluid" id="footer">
     {% block footer %}
     <div class="container-fluid" id="right">
-      <div class="container" id="username-display">{{ session.username }}</div>
+      <div class="container" id="username-display">{{ session.username if session.username else "Guest" }}</div>
       <div class="container" id="username-logout">
-        <a href="http://localhost:5000/logout">(Logout)</a>
+        {% if session.username %}
+          <a href="http://localhost:5000/auth/logout">(Logout)</a>
+        {% else %}
+          <a href="http://localhost:5000/auth/login">(Login)</a>
+        {% endif %}
       </div>
     </div>
     <div class="container-fluid" id="left">AMMTS</div>

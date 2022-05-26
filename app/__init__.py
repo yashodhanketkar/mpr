@@ -1,14 +1,26 @@
-# import os
+import os
 
-# from flask import Flask
+from flask import Flask
 
 
-# def create_app():
-#     app = Flask(__name__, instance_relative_config=True)
-#     app.config.from_pyfile("config.py", silent=True)
+def create_app():
 
-#     from app import home
+    app = Flask(__name__, instance_relative_config=True)
 
-#     app.register_blueprint(home.bp)
+    from .set_config import configure
+    
+    with app.app_context():
+        configure()
 
-#     return app
+    app.config.from_mapping(DATABASE=os.path.join(app.instance_path, 'mpr.sqlite'))
+    if not os.path.isfile(app.config["DATABASE"]):
+        from .db import init_db
+        with app.app_context():
+            init_db()
+
+    from .blueprints import auth, cross_performance, home, performance, predictor, selector
+
+    for _bp in (auth, cross_performance, home, performance, predictor, selector):
+        app.register_blueprint(_bp.bp)
+
+    return app
