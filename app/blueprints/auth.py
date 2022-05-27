@@ -3,12 +3,11 @@ import functools
 from flask import (
     Blueprint,
     flash,
-    g,
     redirect,
     render_template,
     request,
+    session,
     url_for,
-    session
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -32,10 +31,10 @@ def register():
             try:
                 db.execute(
                     "INSERT INTO users(username, password) VALUES (?,?)",
-                    (username, generate_password_hash(password))
+                    (username, generate_password_hash(password)),
                 )
                 db.commit()
-            except db.IntegrityError as e:
+            except db.IntegrityError:
                 error = "Username already present."
             else:
                 return redirect(url_for("auth.login"))
@@ -54,10 +53,7 @@ def login():
         password = request.form["password"]
         db = get_db()
 
-        user = db.execute(
-            "SELECT * FROM users WHERE username = ?",
-            (username,)
-        ).fetchone()
+        user = db.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchone()
 
         if not user:
             error = "Invalid credentials."
@@ -87,7 +83,8 @@ def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if "username" not in session:
-            return redirect(url_for('auth.unauth'))
+            print("No username in session")
+            return redirect(url_for("auth.unauth"))
 
         return view(**kwargs)
 

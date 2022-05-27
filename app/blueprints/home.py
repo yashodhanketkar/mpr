@@ -1,18 +1,10 @@
 from flask import (
     Blueprint,
-    flash,
-    g,
-    redirect,
     render_template,
-    request,
-    url_for,
-    session
+    session,
 )
 
 bp = Blueprint("home", __name__)
-
-
-# @bp.route("/login", methods=("GET", "POST"))
 
 
 @bp.route("/")

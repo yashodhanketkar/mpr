@@ -1,11 +1,7 @@
 import os
 
 import pygal
-from flask import (
-    abort,
-    send_file,
-)
-from flask import current_app
+from flask import abort, current_app, send_file
 
 
 def dir_listing(abs_path):
@@ -19,10 +15,10 @@ def dir_listing(abs_path):
         files (path): Path to files or sub-directories
     """
     if not os.path.exists(abs_path):
-        print('path does not exist')
+        print("path does not exist")
         return abort(404)
     if os.path.isfile(abs_path):
-        print('path exist')
+        print("path exist")
         return send_file(abs_path)
     files = os.listdir(abs_path)
     return files

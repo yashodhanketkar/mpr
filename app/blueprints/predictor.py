@@ -2,25 +2,23 @@ import os
 
 from flask import (
     Blueprint,
-    flash,
-    g,
+    current_app,
     redirect,
     render_template,
     request,
     url_for,
-    session,
-    current_app,
 )
 from werkzeug.utils import secure_filename
 
-from ..helper import get_best_model, get_stored_data
+from .auth import login_required
 from .. import api
-
+from ..helper import get_best_model, get_stored_data
 
 bp = Blueprint("predictor", __name__, url_prefix="/predictor")
 
 
 @bp.route("/")
+@login_required
 def predictor():
     model_list = get_best_model()
     data_list = get_stored_data("test")
@@ -28,6 +26,7 @@ def predictor():
 
 
 @bp.route("/upload", methods=("GET", "POST"))
+@login_required
 def upload_test_file():
     uploaded_file = request.files["file"]
     destination = os.path.join(current_app.config["TEST_FOLDER"], secure_filename(uploaded_file.filename))
@@ -36,6 +35,7 @@ def upload_test_file():
 
 
 @bp.route("/display", methods=("GET", "POST"))
+@login_required
 def predictor_display():
     if request.form["data"] == "empty" or request.form["model"] == "empty":
         return redirect(url_for("predictor"))

@@ -3,32 +3,25 @@ import os
 
 from flask import (
     Blueprint,
-    flash,
-    g,
-    redirect,
+    abort,
+    current_app,
     render_template,
     request,
-    url_for,
-    session,
-    abort
 )
 
+from .auth import login_required
 from .. import api
-from ..helper import get_stored_models, get_stored_data, plot_performance
-from flask import current_app
+from ..helper import get_stored_data, get_stored_models, plot_performance
 
 bp = Blueprint("cross-performance", __name__, url_prefix="/cross_performance")
 
 
 @bp.route("/")
+@login_required
 def cross_performance():
     model_list = get_stored_models()
     data_list = get_stored_data("data")
-    return render_template(
-            "performance/cross_performance.html",
-            model_list=model_list,
-            data_list=data_list
-        )
+    return render_template("performance/cross_performance.html", model_list=model_list, data_list=data_list)
 
 
 @bp.route("/display", methods=("GET", "POST"))

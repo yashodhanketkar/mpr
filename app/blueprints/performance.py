@@ -1,19 +1,14 @@
-import os
 import json
+import os
 
 from flask import (
     Blueprint,
-    flash,
-    g,
+    current_app,
     redirect,
     render_template,
     request,
     url_for,
-    session,
-    abort
 )
-
-from flask import current_app
 
 from ..helper import get_best_model, plot_performance
 from .auth import login_required
@@ -21,15 +16,15 @@ from .auth import login_required
 bp = Blueprint("performance", __name__, url_prefix="/performance")
 
 
-# @login_required
 @bp.route("/")
+@login_required
 def performance():
     model_list = get_best_model()
     return render_template("performance/performance.html", model_list=model_list)
 
 
-# @login_required
 @bp.route("/display", methods=("POST", "GET"))
+@login_required
 def performance_display():
     if request.form["name"] == "empty":
         return redirect(url_for("performance"))
