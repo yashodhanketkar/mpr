@@ -1,3 +1,7 @@
+"""set_config.py
+
+Creates and provide the configuration to the main flask application.
+"""
 import os
 import pathlib
 
@@ -12,6 +16,7 @@ TEST_FOLDER = os.path.join(APP_DIR, "static/test")
 
 
 def configure():
+    """Provides configurateion to the application."""
     current_app.config.from_pyfile("config.py", silent=True)
     current_app.config["APP_DIR"] = APP_DIR
     current_app.config["BASBASE_DIR"] = BASE_DIR

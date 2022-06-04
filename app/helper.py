@@ -1,3 +1,7 @@
+"""helper.py
+
+This modules servers other modules by providing few common functions.
+"""
 import os
 
 import pygal
@@ -5,7 +9,7 @@ from flask import abort, current_app, send_file
 
 
 def dir_listing(abs_path):
-    """This function returns sub-directories or files based on recieved
+    """This function returns sub-directories/files based on recieved
     path
 
     Args:

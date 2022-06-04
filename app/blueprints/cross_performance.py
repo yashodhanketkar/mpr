@@ -1,17 +1,15 @@
+"""cross_performance.py blueprint
+
+Provies the cross-perfromance menu and resutls to the web application.
+"""
 import ast
 import os
 
-from flask import (
-    Blueprint,
-    abort,
-    current_app,
-    render_template,
-    request,
-)
+from flask import Blueprint, abort, current_app, render_template, request
 
-from .auth import login_required
 from .. import api
 from ..helper import get_stored_data, get_stored_models, plot_performance
+from .auth import login_required
 
 bp = Blueprint("cross-performance", __name__, url_prefix="/cross_performance")
 
@@ -19,6 +17,12 @@ bp = Blueprint("cross-performance", __name__, url_prefix="/cross_performance")
 @bp.route("/")
 @login_required
 def cross_performance():
+    """Provides the cross-performance page to the application.
+
+    Returns:
+        performance.html (html_template): Returns cross-performance
+                                          page with required data.
+    """
     model_list = get_stored_models()
     data_list = get_stored_data("data")
     return render_template("performance/cross_performance.html", model_list=model_list, data_list=data_list)
@@ -26,7 +30,11 @@ def cross_performance():
 
 @bp.route("/display", methods=("GET", "POST"))
 def cross_performance_display():
+    """Provides the cross-performance display page to the application.
 
+    Returns:
+        display.html (html_template): Returns cross-performance result.
+    """
     dataset_dir = []
     model = request.form["model"]
     model_dir, model_name = ast.literal_eval(model)

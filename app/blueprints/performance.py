@@ -1,14 +1,11 @@
+"""performance.py blueprint
+
+Provies the perfromance menu and resutls to the web application.
+"""
 import json
 import os
 
-from flask import (
-    Blueprint,
-    current_app,
-    redirect,
-    render_template,
-    request,
-    url_for,
-)
+from flask import Blueprint, current_app, redirect, render_template, request, url_for
 
 from ..helper import get_best_model, plot_performance
 from .auth import login_required
@@ -19,6 +16,12 @@ bp = Blueprint("performance", __name__, url_prefix="/performance")
 @bp.route("/")
 @login_required
 def performance():
+    """Provides the performance page to the application.
+
+    Returns:
+        performance.html (html_template): Returns performance page
+                                          with required data.
+    """
     model_list = get_best_model()
     return render_template("performance/performance.html", model_list=model_list)
 
@@ -26,6 +29,11 @@ def performance():
 @bp.route("/display", methods=("POST", "GET"))
 @login_required
 def performance_display():
+    """Provides the performance display page to the application.
+
+    Returns:
+        display.html (html_template): Returns performance result.
+    """
     if request.form["name"] == "empty":
         return redirect(url_for("performance"))
     file_name = request.form["name"].split(".")[0]

@@ -1,18 +1,15 @@
+"""predictor.py blueprint
+
+Provies the predictor menu and resutls to the web application.
+"""
 import os
 
-from flask import (
-    Blueprint,
-    current_app,
-    redirect,
-    render_template,
-    request,
-    url_for,
-)
+from flask import Blueprint, current_app, redirect, render_template, request, url_for
 from werkzeug.utils import secure_filename
 
-from .auth import login_required
 from .. import api
 from ..helper import get_best_model, get_stored_data
+from .auth import login_required
 
 bp = Blueprint("predictor", __name__, url_prefix="/predictor")
 
@@ -20,6 +17,15 @@ bp = Blueprint("predictor", __name__, url_prefix="/predictor")
 @bp.route("/")
 @login_required
 def predictor():
+    """This page provides user the options for the predictions. The
+    user is provided two lists
+    1. List of the database provided by user
+    2. List of the suitabel model trained by the system
+
+    Return:
+        predictor.html (html template): Returns the predictor page with
+                                        required data.
+    """
     model_list = get_best_model()
     data_list = get_stored_data("test")
     return render_template("predictor/predictor.html", data_list=data_list, model_list=model_list)
@@ -28,6 +34,13 @@ def predictor():
 @bp.route("/upload", methods=("GET", "POST"))
 @login_required
 def upload_test_file():
+    """This function provides the user ability to upload dataset for
+    prediction.
+
+    Returns:
+        predictor.html (html template): Redirects to the predictor
+                                        page.
+    """
     uploaded_file = request.files["file"]
     destination = os.path.join(current_app.config["TEST_FOLDER"], secure_filename(uploaded_file.filename))
     uploaded_file.save(destination)
@@ -37,6 +50,11 @@ def upload_test_file():
 @bp.route("/display", methods=("GET", "POST"))
 @login_required
 def predictor_display():
+    """This page displays the results of the preedictions
+
+    Returns:
+        prediction.html (html template): Displays predictions results
+    """
     if request.form["data"] == "empty" or request.form["model"] == "empty":
         return redirect(url_for("predictor"))
     data = request.form["data"]

@@ -1,4 +1,4 @@
-"""Selection.py
+"""selection.py
 
 This module runs the selection process. It takes data from user and
 provide it to models and eval module. This module creates directories

@@ -1,14 +1,10 @@
+"""auth.py blueprint
+
+Provides the authorization functionality to the web application.
+"""
 import functools
 
-from flask import (
-    Blueprint,
-    flash,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import Blueprint, flash, redirect, render_template, request, session, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.db import get_db
@@ -18,6 +14,16 @@ bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 @bp.route("/register", methods=("GET", "POST"))
 def register():
+    """Registers users with unique username.
+
+    Args:
+        POST.USERNAME (str): Username provided by user with POST method
+        POST.PASSWORD (str): Password provided by user with POST method
+
+    Returns:
+        login.html (html_template): if no error is present
+        register.html (html_template): if error is present
+    """
     error = None
     if request.method == "POST":
         username = request.form["username"]
@@ -45,6 +51,16 @@ def register():
 
 @bp.route("/login", methods=("GET", "POST"))
 def login():
+    """Logins the user.
+
+    Args:
+        POST.USERNAME (str): Username provided by user with POST method
+        POST.PASSWORD (str): Password provided by user with POST method
+
+    Returns:
+        home.html (html_template): if username is in session
+        login.html (html_template): if username is not in session
+    """
     error = None
     if "user_id" in session:
         return redirect(url_for("home.home"))
@@ -57,7 +73,7 @@ def login():
 
         if not user:
             error = "Invalid credentials."
-        elif check_password_hash(user["password"], password):
+        elif not check_password_hash(user["password"], password):
             error = "Invalid credentials."
 
         if error is None:
@@ -70,16 +86,37 @@ def login():
 
 @bp.route("/unauth")
 def unauth():
+    """Provides unautharized page.
+
+    Returns:
+        unauth.html (html_template): if username is not in session
+    """
     return render_template("auth/unauth.html")
 
 
 @bp.route("/logout")
 def logout():
+    """Clears the users session and redirect to login page.
+
+    Returns:
+        login.html (html_template): Redirect to login page
+    """
     session.clear()
     return redirect(url_for("auth.login"))
 
 
 def login_required(view):
+    """Decorater for login access.
+
+    Args:
+        view (view): Request for the view function
+
+    Returns:
+        unauth.html (html_template): if username is not in session
+        wrapped_view (function) -> *.html (html_template)
+            : if username is in session
+    """
+
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if "username" not in session:
