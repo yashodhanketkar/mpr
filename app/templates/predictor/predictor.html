@@ -9,7 +9,7 @@
     <h1>Predictor</h1>
   </div>
   <div class="container-fluid" id="main-content">
-    <form action="http://localhost:5000/predictor/display" enctype="multipart/form-data" method="post" id="testform">
+    <form action="display" enctype="multipart/form-data" method="post" id="testform">
       <label class="badge badge-secondary" id="dataset-label">
         Select dataset for prediction
       </label>
@@ -30,7 +30,7 @@
       </select>
       <input type="submit" value="Submit" class="btn btn-secondary" id="predict-button">
     </form>
-    <form action="http://localhost:5000/predictor/upload" enctype="multipart/form-data" method="post" id="upload-test">
+    <form action="upload" enctype="multipart/form-data" method="post" id="upload-test">
       <div class="container-fluid" id="file-input">
         <input name="file" type="file" class="btn btn-light btn-lg" id="upload" onchange="this.form.submit()">
         <label for="upload">Note: If the dataset is not present click here to upload</label>

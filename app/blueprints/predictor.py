@@ -44,7 +44,7 @@ def upload_test_file():
     uploaded_file = request.files["file"]
     destination = os.path.join(current_app.config["TEST_FOLDER"], secure_filename(uploaded_file.filename))
     uploaded_file.save(destination)
-    return redirect(url_for("predictor"))
+    return redirect(url_for("predictor.predictor"))
 
 
 @bp.route("/display", methods=("GET", "POST"))
@@ -53,10 +53,11 @@ def predictor_display():
     """This page displays the results of the preedictions
 
     Returns:
+        predictor.html (html template): If incorrect data is provided
         prediction.html (html template): Displays predictions results
     """
     if request.form["data"] == "empty" or request.form["model"] == "empty":
-        return redirect(url_for("predictor"))
+        return redirect(url_for("predictor.predictor"))
     data = request.form["data"]
     model = request.form["model"]
     data_url = os.path.join(current_app.config["TEST_FOLDER"], data)

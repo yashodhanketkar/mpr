@@ -9,10 +9,6 @@
     <h1>Selector</h1>
   </div>
   <div class="container-fluid" id="main-content">
-    <form action="http://localhost:5000/selector/upload" method="POST" enctype="multipart/form-data" id="selector-form">
-      <div class="container-fluid" id="file-input">
-        <label class="badge badge-secondary" id="dataset-label">Upload another dataset: </label><br>
-        <input name="file" class="btn btn-light btn-lg" type="file" onchange="this.form.submit()"><br>
         <label class="badge badge-light" id="selected-model">{{ message }}</label>
       </div>
     </form>

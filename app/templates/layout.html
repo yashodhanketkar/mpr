@@ -29,11 +29,11 @@
   </head>
   <body>
   <div class="sidenav">
-    <a href="http://localhost:5000/">Home</a>
-    <a href="http://localhost:5000/selector">Selector</a>
-    <a href="http://localhost:5000/predictor">Predictor</a>
-    <a href="http://localhost:5000/performance">Performance</a>
-    <a href="http://localhost:5000/cross_performance">Cross-Performance</a>
+    <a href="/">Home</a>
+    <a href="/selector/">Selector</a>
+    <a href="/predictor/">Predictor</a>
+    <a href="/performance/">Performance</a>
+    <a href="/cross_performance/">Cross-Performance</a>
   </div>
   <div class="container-xl" id="content">
     {% block content %}
@@ -48,12 +48,13 @@
   <div class="container-fluid" id="footer">
     {% block footer %}
     <div class="container-fluid" id="right">
-      <div class="container" id="username-display">{{ session.username if session.username else "Guest" }}</div>
+      <!-- <div class="container" id="username-display">{{ session.username if session.username else "Guest" }}</div> -->
+      <a href="auth/logout">{{ session.username if session.username else "Guest" }}</a>
       <div class="container" id="username-logout">
         {% if session.username %}
-          <a href="http://localhost:5000/auth/logout">(Logout)</a>
+          <a href="auth/logout">(Logout)</a>
         {% else %}
-          <a href="http://localhost:5000/auth/login">(Login)</a>
+          <a href="auth/login">(Login)</a>
         {% endif %}
       </div>
     </div>

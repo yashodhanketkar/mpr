@@ -1,17 +1,26 @@
+.form-control {
+  font-size: medium;
+  font-weight: 500;
+}
+
+#dataset-label, #train-button {
+  margin-top: 8px;
+  font-size: medium;
+}
+
+#upload {
+  display: none;
+}
+
 #file-input {
   padding: 0px;
 }
 
-#file-input input::file-selector-button {
-  display: none;
+#training-dataset-selector {
+  width: 50%;
 }
 
 #selected-model {
-  margin: 5px 0px 5px 5px;
-  font-size: medium;
-}
-
-#dataset-label {
   margin-top: 8px;
-  font-size: medium;
+  font-size: x-large;
 }

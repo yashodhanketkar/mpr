@@ -76,7 +76,7 @@ def get_model(data_path=None, weights=None):
         weights (dict): Weights provided by user
 
     Returns:
-        return_string (str): Returns name of model with format for ui
+        selected_model_name, file_name (str)
     """
     if data_path is None:
         raise ValueError
@@ -86,8 +86,7 @@ def get_model(data_path=None, weights=None):
     prediction_list, y_test = run_model(data_path, model_path, file_name)
     selected_model_name = get_selected_model(file_name, prediction_list, y_test, weights)
     save_model(selected_model_name, model_path, file_name)
-    return_string = f"{selected_model_name} model is selected for {file_name}" "database and stored for predictions"
-    return return_string
+    return selected_model_name, file_name
 
 
 if __name__ == "__main__":
