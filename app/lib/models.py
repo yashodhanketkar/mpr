@@ -36,10 +36,13 @@ def make_models(spec=None):
 
     Returns:
         models (list): The list of tuple of model name and model
+        spec (list): The list of tuple of model provided by user
     """
-    if spec is None:
-        with open(r"app\lib\parameters\default_models.sav", "rb") as model_file:
-            models = pickle.load(model_file)
+    if spec:
+        return spec
+
+    with open(r"app\lib\parameters\default_models.sav", "rb") as model_file:
+        models = pickle.load(model_file)
 
     return models
 

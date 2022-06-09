@@ -8,6 +8,15 @@ import pygal
 from flask import abort, current_app, send_file
 
 
+model_names = {
+    "DT": "Decision Tree",
+    "KNN": "K-Nearest Neighbours",
+    "RF": "Random Forest",
+    "MLP": "Multilayer Perceptron",
+    "SVM": "Support Vector Machine"
+}
+
+
 def dir_listing(abs_path):
     """This function returns sub-directories/files based on recieved
     path
@@ -87,18 +96,25 @@ def plot_performance(data, is_cross_performance=False):
     names_list = []
     performance_list = []
     if is_cross_performance:
-        metrics = ["accuracy", "f1", "precision", "recall", "roc", "pred_time"]
+        metrics = ["accuracy", "f1", "precision", "recall", "roc"]
+        dataset_name_index, type_index = (0, 2)
     else:
         metrics = ["accuracy", "f1", "precision", "recall", "roc", "pred_time"]
+        dataset_name_index, type_index = (1, 0)
     for item in data:
-        names_list.append(item["name"].split("_")[0])
+        names_list.append(item["name"].split("_")[type_index])
         if dataset_name == "":
-            dataset_name = item["name"].split("_")[1]
+            dataset_name = item["name"].split("_")[dataset_name_index]
+            if is_cross_performance:
+                model = item["name"].split("_")[1]
         performance_list.append([item[metric] for metric in metrics])
 
-    custom_style = pygal.style.Style(background="transparent", opacity=".7", opacity_hover="1.0")
+    custom_style = pygal.style.Style(background="transparent", opacity=".7", opacity_hover="1.0", title_font_size=25)
     bar_plot = pygal.Bar(style=custom_style, fill=True)
-    bar_plot.title = f"Performance of models for {dataset_name}"
+    if is_cross_performance:
+        bar_plot.title = f"Performance of {model_names[model]} model trained on {dataset_name}"
+    else:
+        bar_plot.title = f"Performance of models for {dataset_name}"
     bar_plot.x_labels = metrics
     for i, name in enumerate(names_list):
         bar_plot.add(name, performance_list[i])
