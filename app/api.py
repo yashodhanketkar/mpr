@@ -7,9 +7,9 @@ This is API for attms
 import json
 import os
 
-from app.lib.cross_model_test import test_against_database, test_all_models
-from app.lib.prediction import get_prediction
-from app.lib.selection import get_model
+from collections.abc import Callable
+
+from .lib import test_against_database, test_all_models, get_model, get_prediction
 
 
 def get_json_data(file_relative_path):
@@ -42,24 +42,24 @@ def get_model_paths(dataset_name):
     return model_paths
 
 
-def train_model(data_path):
+def train_model(data_path: str) -> tuple:
     return get_model(data_path)
 
 
-def get_predictions(model_path, data_path):
+def get_predictions(model_path: str, data_path: str) -> dict:
     return get_prediction(data_path, model_path)
 
 
-def model_cross_performance_specific_model(model_path, data_1_path, data_2_path):
+def model_cross_performance_specific_model(model_path: str, data_1_path: str, data_2_path: str) -> tuple:
     return test_against_database(model_path, data_1_path, data_2_path)
 
 
-def model_cross_performance_all_models(dataset_name, data_1_path, data_2_path):
+def model_cross_performance_all_models(dataset_name: str, data_1_path: str, data_2_path: str) -> None:
     model_paths = get_model_paths(dataset_name)
     test_all_models(model_paths, data_1_path, data_2_path)
 
 
-def get_model_performance(dataset_performance):
+def get_model_performance(dataset_performance: str) -> list:
     """Returns model performance
 
     Args:
@@ -73,7 +73,7 @@ def get_model_performance(dataset_performance):
     return performance
 
 
-def get_cross_performance(dataset_performance):
+def get_cross_performance(dataset_performance: str) -> list:
     """Returns cross-performance of model
 
     Args:
@@ -98,7 +98,7 @@ COMMANDS_DICT = {
 }
 
 
-def ammts_commands(param):
+def ammts_commands(param: str) -> Callable:
     if param not in COMMANDS_DICT.keys():
         raise NameError
     return COMMANDS_DICT[param]

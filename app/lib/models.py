@@ -13,22 +13,7 @@ import pickle
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-
-def convert_to_dual_class(multiclass_value):
-    """Convert multiclass problems to dualclass problems by processing
-    target outputs
-
-    Args:
-        multiclass_value (data): Multiclass data
-    Returns:
-        dual_class_value (data): Converted dataset
-    """
-
-    # Convert multiclass values by converting valid non-zero values to 1.0
-    # This results in only binary class with 0.0 and 1.0 values
-    convert_value = multiclass_value.apply(lambda x: 0.0 if x == 0 else 1.0)
-    dual_class_value = pd.Series(convert_value.tolist())
-    return dual_class_value
+from .data_formatter import convert_to_dual_class
 
 
 def make_models(spec=None):

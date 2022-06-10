@@ -9,22 +9,23 @@ and saves the best model for selected database.
 import os
 import shutil
 
-from app.lib.eval import get_selected_model
-from app.lib.models import run_model
+from .eval import get_selected_model
+from .models import run_model
+from .data_formatter import name_generator
 
 
-def name_generator(file_path):
-    """This function produces file name from file path provided by user
+# def name_generator(file_path):
+#     """This function produces file name from file path provided by user
 
-    Args:
-        file_path (str): File path provided by user
+#     Args:
+#         file_path (str): File path provided by user
 
-    Returns:
-        name_str (str): Name of file generated form file path
-    """
-    name = file_path.split("\\")[-1].split(".")[0]
-    name_str = f"{name}"
-    return name_str
+#     Returns:
+#         name_str (str): Name of file generated form file path
+#     """
+#     name = file_path.split("\\")[-1].split(".")[0]
+#     name_str = f"{name}"
+#     return name_str
 
 
 def make_directories(file_name):
@@ -80,7 +81,7 @@ def get_model(data_path=None, weights=None):
     """
     if data_path is None:
         raise ValueError
-    file_name = name_generator(data_path)
+    _, file_name = name_generator(data_path)
     make_directories(file_name)
     model_path = os.path.join(os.getcwd(), "model")
     prediction_list, y_test = run_model(data_path, model_path, file_name)

@@ -14,36 +14,7 @@ import time
 import pandas as pd
 from sklearn import metrics
 
-
-def convert_to_dual_class(multiclass_value):
-    """This function converts multiple class label dataset into dual
-    class label dataset
-
-    Args:
-        multiclass_value (series): User provided lables
-
-    Returns:
-        dualclass_value (series): Converted labels
-    """
-    convert_value = multiclass_value.apply(lambda x: 0.0 if x == 0 else 1.0)
-    dual_class_value = pd.Series(convert_value.tolist())
-    return dual_class_value
-
-
-def name_generator(file_path):
-    """Generates directory path and name of classifier from file path
-    provided by user
-
-    Args:
-        file_path (str): File path provider by user
-
-    Returns:
-        dir_name (str): Name of directory of classifier
-        clf_name (str): Name of classifier
-    """
-    clf_name = file_path.split("\\")[-1].split(".")[0]
-    dir_name = file_path.split("\\")[-2]
-    return dir_name, clf_name
+from .data_formatter import convert_to_dual_class, name_generator
 
 
 def prediction_performance(model_name, data_name, model_clf, data, y_target):
