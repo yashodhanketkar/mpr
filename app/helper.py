@@ -4,6 +4,7 @@ This modules servers other modules by providing few common functions.
 """
 import os
 
+import json
 import pygal
 from flask import abort, current_app, send_file
 
@@ -130,6 +131,12 @@ def plot_performance(data, is_cross_performance=False):
 
 
 def save_cross_performance_data():
+    """Runs cross performance on best-models and training datasets.
+    Stores the results for future use.
+
+    Returns:
+        None
+    """
     data_dir = [
         os.path.join(current_app.config["UPLOAD_FOLDER"], data_path)
         for data_path in get_stored_data("data")
@@ -139,3 +146,38 @@ def save_cross_performance_data():
         for model_path in get_best_model()
     ]
     test_all_models(model_dir, data_dir)
+
+
+def plot_cross_performance(data):
+    dataset_name = ""
+    names_list = []
+    performance_list = []
+    metrics = ["accuracy", "f1", "precision", "recall", "roc"]
+    dataset_name_index, type_index = (2, 3)
+    for item in data:
+        names_list.append(item["name"].split("_")[type_index])
+        if dataset_name == "":
+            dataset_name = item["name"].split("_")[dataset_name_index]
+        performance_list.append([item[metric] for metric in metrics])
+
+    custom_style = pygal.style.Style(
+        background="transparent", opacity=".7", opacity_hover="1.0", title_font_size=25
+    )
+    bar_plot = pygal.Bar(style=custom_style, fill=True)
+    bar_plot.title = f"Performance of {dataset_name} model"
+    bar_plot.x_labels = metrics
+    for i, name in enumerate(names_list):
+        bar_plot.add(name, performance_list[i])
+    bar_plot_data = bar_plot.render_data_uri()
+    return bar_plot_data
+
+
+def get_cross_performance_graph():
+    plots = []
+    data_path = os.path.join(os.getcwd(), r'model\cross_performance')
+    files = dir_listing(data_path)
+    for file in files:
+        with open(os.path.join(data_path, file), 'r') as json_file:
+            data = json.load(json_file)
+            plots.append(plot_cross_performance(data))
+    return plots

@@ -11,6 +11,12 @@
   </h1>
 </div>
 <div class="container-fluid" id="main-content">
-    <h4>No data available. Please click on refresh icon next to heading!</h4>
+  <div id="chart">
+    {% for performance_plot in performance_plots %}
+    <div id="chart-item">
+      <embed id="chart-embed" type="image/svg+xml" src="{{ performance_plot|safe }}">
+    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}
