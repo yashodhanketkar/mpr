@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block title %}Predictor{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+{% block content %}
+<div class="container-fluid" id="heading">
+  <h1>
+    Dashboard<a href="/dashboard/update" id="cross-performance-update"><span class="material-icons">refresh</span>
+  </h1>
+</div>
+<div class="container-fluid" id="main-content">
+  <form action="display" enctype="multipart/form-data" method="post" id="testform">
+    <label class="badge badge-secondary" id="dataset-label">
+      Select dataset for training
+    </label>
+  </form>
+</div>
+{% endblock %}

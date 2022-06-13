@@ -7,13 +7,16 @@ import os
 import pygal
 from flask import abort, current_app, send_file
 
+from app.lib.cross_model_test import test_all_models
+# from .api import model_cross_performance_all_models
+
 
 model_names = {
     "DT": "Decision Tree",
     "KNN": "K-Nearest Neighbours",
     "RF": "Random Forest",
     "MLP": "Multilayer Perceptron",
-    "SVM": "Support Vector Machine"
+    "SVM": "Support Vector Machine",
 }
 
 
@@ -109,10 +112,14 @@ def plot_performance(data, is_cross_performance=False):
                 model = item["name"].split("_")[1]
         performance_list.append([item[metric] for metric in metrics])
 
-    custom_style = pygal.style.Style(background="transparent", opacity=".7", opacity_hover="1.0", title_font_size=25)
+    custom_style = pygal.style.Style(
+        background="transparent", opacity=".7", opacity_hover="1.0", title_font_size=25
+    )
     bar_plot = pygal.Bar(style=custom_style, fill=True)
     if is_cross_performance:
-        bar_plot.title = f"Performance of {model_names[model]} model trained on {dataset_name}"
+        bar_plot.title = (
+            f"Performance of {model_names[model]} model trained on {dataset_name}"
+        )
     else:
         bar_plot.title = f"Performance of models for {dataset_name}"
     bar_plot.x_labels = metrics
@@ -120,3 +127,15 @@ def plot_performance(data, is_cross_performance=False):
         bar_plot.add(name, performance_list[i])
     bar_plot_data = bar_plot.render_data_uri()
     return bar_plot_data
+
+
+def save_cross_performance_data():
+    data_dir = [
+        os.path.join(current_app.config["UPLOAD_FOLDER"], data_path)
+        for data_path in get_stored_data("data")
+    ]
+    model_dir = [
+        os.path.join(current_app.config["MODELS_FOLDER"], rf'best_model\{model_path}')
+        for model_path in get_best_model()
+    ]
+    test_all_models(model_dir, data_dir)

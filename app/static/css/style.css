@@ -47,15 +47,20 @@
 }
 
 #heading {
-  background-color: rgb(255, 239, 213);
+  background-color: #eaeaea;
+  width: auto;
+  z-index: 99;
 }
 
 #heading h1 {
   position: fixed;
   width: 100%;
   top: 0px;
-  margin-left: 5px;
-  background: white;
+  margin-left: -45px;
+  background: #f5f5f5;
+  z-index: inherit;
+  padding-left: 50px;
+  padding-bottom: 2.5px;
 }
 
 ul, ol {
@@ -95,7 +100,7 @@ ul, ol {
   left: 0;
   bottom: 0;
   width: 50%;
-  background-color: #eaeaea80;
+  background-color: #f5f5f5;
   color: black;
   text-align: left;
 }
@@ -105,35 +110,9 @@ ul, ol {
   right: 0;
   bottom: 0;
   width: 50%;
-  background-color: #eaeaea80;
+  background-color: #f5f5f5;
   color: rgb(20, 20, 20);
   text-align: right;
-}
-
-#footer #right #username-display {
-  display: unset;
-  padding: 0px;
-}
-
-#footer #right #username-logout {
-  display: none;
-}
-
-#footer #right #username-display:hover {
-  display: none;
-}
-
-#footer #right #username-display:hover ~ #username-logout {
-  display: unset;
-  padding: 0px;
-}
-
-
-@media (min-height: 0px) and (max-height: 600px){
-  #footer { 
-    display : none; 
-    visibility : hidden; 
-  }
 }
 
 @media screen and (max-height: 450px) {
@@ -144,16 +123,21 @@ ul, ol {
     width: 100%;
     height: auto;
     display: inline-flex;
+    background: #f5f5f5;
   }
 
   .sidenav a {
     padding: 2px 4px 2px 4px;
     font-size: small;
+    background:none;
   }
 
   #content {
     position: relative;
+    margin-top: 25px;
     margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 7.5px;
     padding-left: 10px;
   }
 
@@ -161,6 +145,7 @@ ul, ol {
     margin-top: 25px;
     margin-left: 0px;
     padding: 0px;
+    background-color: white;
   }
 
   #heading h1 {
@@ -175,5 +160,12 @@ ul, ol {
     margin-top: 0px;
     margin-left: 0px;
     padding: 0px;
+  }
+}
+
+@media screen and (max-width: 1000px){
+  .sidebar {
+    display: none;
+    visibility: hidden;
   }
 }

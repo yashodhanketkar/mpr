@@ -1,0 +1,12 @@
+.sidebar {
+    display: none;
+    visibility: hidden;
+}
+
+#heading a {
+    color: gray;
+}
+
+#heading a:hover {
+    color: black;
+}

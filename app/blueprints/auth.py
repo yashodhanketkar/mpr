@@ -79,6 +79,7 @@ def login():
         if error is None:
             session.clear()
             session["username"] = user["username"]
+            session["userrole"] = user["userrole"]
             return redirect(url_for("home.home"))
 
     return render_template("auth/login.html", error=error)

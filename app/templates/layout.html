@@ -1,39 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link
-    rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-    crossorigin="anonymous">
-    <script
-    src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+
+<head>
+  <meta charset="utf-8">
+  {% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
-    <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
-    <script
-    src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
-    <title>
-      {% block title %}
-      {% endblock %}
-    </title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <title>
+    {% block title %}
     {% endblock %}
-  </head>
-  <body>
+  </title>
+  {% endblock %}
+</head>
+
+<body>
   <div class="sidenav">
     <a href="/">Home</a>
-    <a href="/selector/">Selector</a>
+    {% if session.userrole %}
     <a href="/predictor/">Predictor</a>
+    {% if session.userrole == "ADMIN" %}
+    <a href="/selector/">Selector</a>
     <a href="/performance/">Performance</a>
     <a href="/cross_performance/">Cross-Performance</a>
+    <a href="/dashboard/">Dashboard</a>
+    {% endif %}
+    {% endif %}
   </div>
   <div class="container-xl" id="content">
     {% block content %}
@@ -47,19 +50,12 @@
 
   <div class="container-fluid" id="footer">
     {% block footer %}
-    <div class="container-fluid" id="right">
-      <!-- <div class="container" id="username-display">{{ session.username if session.username else "Guest" }}</div> -->
-      <a href="auth/logout">{{ session.username if session.username else "Guest" }}</a>
-      <div class="container" id="username-logout">
-        {% if session.username %}
-          <a href="auth/logout">(Logout)</a>
-        {% else %}
-          <a href="auth/login">(Login)</a>
-        {% endif %}
-      </div>
+    <div class="container-fluid" id="left">
+      <a href="/auth/logout">{{ session.username if session.username else "Guest" }}</a>
     </div>
-    <div class="container-fluid" id="left">AMMTS</div>
+    <div class="container-fluid" id="right">2022 © WBMSS</div>
     {% endblock %}
   </div>
-  </body>
+</body>
+
 </html>
