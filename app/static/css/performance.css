@@ -3,24 +3,49 @@
   font-weight: 500;
 }
 
-#dataset-label, #model-label, #performance-button {
+#dataset-label,
+#model-label,
+#performance-button {
   margin-top: 8px;
   font-size: medium;
 }
 
-#performance-select, #cross-performance-select-model, #cross-performance-select-data {
+#performance-select,
+#cross-performance-select-model,
+#cross-performance-select-data {
   width: 50%;
 }
 
 #chart-embed {
-  width: 80%;
+  width: 90%;
   height: 50%;
   background: white;
 }
 
-@media screen and (min-height: 480px) and (max-height: 650px) {
+@media screen and (max-height: 600px) {
   #chart-embed {
     width: 150%;
+  }
+}
+
+@media screen and (max-height: 420px) {
+  #chart-embed {
+    width: 50%;
+  }
+
+  .form-control {
+    font-size: 50%;
+    height: auto;
+    width: auto;
+  }
+
+  #performance-select {
+    width: auto;
+    height: auto;
+  }
+
+  #model-label {
+    font-size: 50%;
   }
 }
 

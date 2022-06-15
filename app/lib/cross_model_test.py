@@ -77,25 +77,40 @@ def test_against_database(model_path, database_1, database_2):
         (x_data_2, y_data_2, data_2_name),
     ):
         performance_status.append(prediction_performance(model_name, data_name, model_clf, x, y))
-    performance_result = tuple(performance_status)
+    performance_result = performance_status
     return performance_result
 
 
-def test_all_models(model_paths, database_1, database_2):
+def store_cross_performance(model_path, performance):
+    """This functions stores the cross-performance result into the
+    cross perfomrance directory
+
+    Args:
+        model_path (path): The path of the model
+        performance (list): The list of performance parameters
+
+    Returns:
+        None
+    """
+    model_name = model_path.split("\\")[-1].split(".")[0]
+    save_dir = os.path.join(os.getcwd(), rf"model\cross_performance\{model_name}.json")
+    with open(save_dir, "w") as json_file:
+        json.dump(performance, json_file)
+
+
+def test_all_models(model_paths, datasets):
     """This function test all models against multiple dataset and save
     performance
 
     Args:
         model_paths (path): Path of directory where models are stored
-        database_1, database_2 (path): Path of datasets provided by user
+        datasets (list): List of dataset path to be tested
 
     Returns:
         None
     """
-    model_performance = []
-    for model_path in model_paths:
-        model_performance.append(test_against_database(model_path, database_1, database_2))
-    name = name_generator(model_paths)[0]
-    cross_performance_save_dir = os.path.join(os.getcwd(), rf"model\cross_performance\{name}.json")
-    with open(cross_performance_save_dir, "w") as json_file:
-        json.dump(model_performance, json_file)
+    for model in model_paths:
+        performance = []
+        for i in range(0, len(datasets), 2):
+            performance += test_against_database(model, datasets[0 + i], datasets[1 + i])
+        store_cross_performance(model, performance)

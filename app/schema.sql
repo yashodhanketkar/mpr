@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    userrole TEXT,
+    userrole TEXT DEFAULT "GUEST",
     username TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL
 );

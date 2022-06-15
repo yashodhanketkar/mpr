@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+{% block content %}
+<div class="container-fluid" id="heading">
+  <h1>
+    Dashboard <a href="/dashboard/update" id="cross-performance-update"><span class="material-icons">refresh</span></a>
+  </h1>
+</div>
+<div class="container-fluid" id="main-content">
+    <h4>No data available. Please click on refresh icon next to heading!</h4>
+</div>
+{% endblock %}

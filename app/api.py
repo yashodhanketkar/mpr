@@ -6,10 +6,9 @@ This is API for attms
 
 import json
 import os
-
 from collections.abc import Callable
 
-from .lib import test_against_database, test_all_models, get_model, get_prediction
+from .lib import get_model, get_prediction, test_against_database, test_all_models
 
 
 def get_json_data(file_relative_path):
@@ -42,8 +41,8 @@ def get_model_paths(dataset_name):
     return model_paths
 
 
-def train_model(data_path: str) -> tuple:
-    return get_model(data_path)
+def train_model(data_path: str, weights: dict) -> tuple:
+    return get_model(data_path, weights)
 
 
 def get_predictions(model_path: str, data_path: str) -> dict:

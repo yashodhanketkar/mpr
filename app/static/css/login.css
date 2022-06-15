@@ -50,7 +50,7 @@
   visibility: hidden;
 }
 
-#footer {
+#footer, #left, #right {
   display: none;
 }
 

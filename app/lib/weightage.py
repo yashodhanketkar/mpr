@@ -125,20 +125,31 @@ def get_weightage(parameter_pref):
     return weightage_perf
 
 
-def example():
-    import copy
+def default_weights():
+    """This function returns default weights.
 
-    """Example
+    Returns:
+        (dict): Dictionary of default weightage
     """
-    parameter_preference = {
-        "accuracy": 1,
-        "f1": 3,
-        "precision": 1,
-        "recall": 2,
-        "roc": 2,
-        "pred_time": "slow",
-    }
-    weightage = get_weightage(copy.deepcopy(parameter_preference))
+    return get_weightage(
+        {
+            "accuracy": 3,
+            "f1": 3,
+            "precision": 3,
+            "recall": 3,
+            "roc": 3,
+            "pred_time": "normal",
+        }
+    )
+
+
+def example():
+    """Example of weightage
+
+    Returns:
+        None
+    """
+    weightage = default_weights()
     print(weightage)
 
 

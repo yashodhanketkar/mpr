@@ -3,6 +3,7 @@
 {% block head %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/selector.css') }}">
+<script src="{{ url_for('static', filename='scripts/selector.js') }}"></script>
 {% endblock %}
 {% block content %}
 <div class="container-fluid" id="heading">
@@ -21,12 +22,216 @@
     </select>
 
     <input type="submit" value="Train" class="btn btn-secondary" id="train-button">
+    <input type="button" value="Reset" class="btn btn-secondary" id="reset-button">
+    <input type="button" value="Preferences" class="btn btn-secondary" id="pref-button">
+    <br>
+
+    <div id="preference">
+    <label class="badge bg-secondary" id="options-label">
+      Accuracy
+    </label>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Accuracy" id="acc-5" value="acc5">
+      <label class="form-check-label" for="acc-5">
+        Lowest
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Accuracy" id="acc-4" value="acc4">
+      <label class="form-check-label" for="acc-4">
+        Low
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Accuracy" id="acc-3" value="acc3" checked>
+      <label class="form-check-label" for="acc-3">
+        Default
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Accuracy" id="acc-2" value="acc2">
+      <label class="form-check-label" for="acc-2">
+        High
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Accuracy" id="acc-1" value="acc1">
+      <label class="form-check-label" for="acc-1">
+        Extreme
+      </label>
+    </div>
+    <br>
+
+    <label class="badge bg-secondary" id="options-label">
+      F1
+    </label>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="F1" id="f1-5" value="f15">
+      <label class="form-check-label" for="f1-5">
+        Lowest
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="F1" id="f1-4" value="f14">
+      <label class="form-check-label" for="f1-4">
+        Low
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="F1" id="f1-3" value="f13" checked>
+      <label class="form-check-label" for="f1-3">
+        Default
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="F1" id="f1-2" value="f12">
+      <label class="form-check-label" for="f1-2">
+        High
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="F1" id="f1-1" value="f11">
+      <label class="form-check-label" for="f1-1">
+        Extreme
+      </label>
+    </div>
+    <br>
+
+    <label class="badge bg-secondary" id="options-label">
+      Precision
+    </label>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Precision" id="prec-5" value="prec5">
+      <label class="form-check-label" for="prec-5">
+        Lowest
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Precision" id="prec-4" value="prec4">
+      <label class="form-check-label" for="prec-4">
+        Low
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Precision" id="prec-3" value="prec3" checked>
+      <label class="form-check-label" for="prec-3">
+        Default
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Precision" id="prec-2" value="prec2">
+      <label class="form-check-label" for="prec-2">
+        High
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Precision" id="prec-1" value="prec1">
+      <label class="form-check-label" for="prec-1">
+        Extreme
+      </label>
+    </div>
+    <br>
+
+    <label class="badge bg-secondary" id="options-label">
+      Recall
+    </label>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Recall" id="rec-5" value="rec5">
+      <label class="form-check-label" for="rec-5">
+        Lowest
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Recall" id="rec-4" value="rec4">
+      <label class="form-check-label" for="rec-4">
+        Low
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Recall" id="rec-3" value="rec3" checked>
+      <label class="form-check-label" for="rec-3">
+        Default
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Recall" id="rec-2" value="rec2">
+      <label class="form-check-label" for="rec-2">
+        High
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Recall" id="rec-1" value="rec1">
+      <label class="form-chek-label" for="rec-1"></label>
+        Extreme
+      </label>
+    </div>
+    <br>
+
+    <label class="badge bg-secondary" id="options-label">
+      ROC
+    </label>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="ROC" id="roc-5" value="roc5">
+      <label class="form-check-label" for="roc-5">
+        Lowest
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="ROC" id="roc-4" value="roc4">
+      <label class="form-check-label" for="roc-4">
+        Low
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="ROC" id="roc-3" value="roc3" checked>
+      <label class="form-check-label" for="roc-3">
+        Default
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="ROC" id="roc-2" value="roc2">
+      <label class="form-check-label" for="roc-2">
+        High
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="ROC" id="roc-1" value="roc1">
+      <label class="form-check-label" for="roc-1">
+        Extreme
+      </label>
+    </div>
+    <br>
+
+    <label class="badge bg-secondary" id="options-label">
+      Time
+    </label>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Time" id="slow" value="slow">
+      <label class="form-check-label" for="slow">
+        Slow
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Time" id="normal" value="normal" checked>
+      <label class="form-check-label" for="normal">
+        Default
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <input class="form-check-input" type="radio" name="Time" id="fast" value="fast">
+      <label class="form-check-label" for="fast">
+        Fast
+      </label>
+    </div>
+  </div>
+  <hr>
+
   </form>
 
   <form action="upload" enctype="multipart/form-data" method="post" id="upload-test">
     <div class="container-fluid" id="file-input">
       <input name="file" type="file" class="btn btn-light btn-lg" id="upload" onchange="this.form.submit()">
-      <label for="upload">Note: If the dataset is not present click here to upload</label>
+      Note: If the dataset is not present <label id="upload-text" for="upload">click here</label> to upload training dataset.
     </div>
   </form>
 </div>

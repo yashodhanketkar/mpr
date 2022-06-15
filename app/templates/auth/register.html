@@ -1,29 +1,33 @@
 {% extends "layout.html" %}
 {% block title %}Register{% endblock %}
 {% block head %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<script src="{{ url_for('static', filename='scripts/auth.js') }}"></script>
 {% endblock %}
 {% block content %}
-  <div class="container-fluid" id="form-login">
-    <form class="container" id="login-form" action="http://localhost:5000/auth/register" method="post">
-      <div class="row" id="name-box">
-        <label>ATTPS</label>
-      </div>
-      <div class="row" id="username-box">
-        <label>Username</label><br>
-        <input type="text" placeholder="username" name="username" value="{{ request.form.username }}">
-      </div>
-      <div class="row" id="password-box">
-        <label>Password</label><br>
-        <input type="password" placeholder="password" name="password" value="{{ request.form.password }}">
-      </div>
-      <div class="row" id="login-button">
-        <input class="btn btn-primary" type="submit" value="Login">
-      </div>
-      {% if error %}
-        <p><strong>{{ error }}</strong></p>
-      {% endif %}
-    </form>
-  </div>
+<div class="container-fluid" id="form-login">
+  <form class="container" id="login-form" action="register" method="post">
+    <div class="row" id="name-box">
+      <label>WBMSS</label>
+    </div>
+    <div class="row" id="username-box">
+      <label>Username</label><br>
+      <input type="text" placeholder="username" name="username" value="{{ request.form.username }}">
+    </div>
+    <div class="row" id="password-box">
+      <label>Password</label><br>
+      <input type="password" name="password" value="{{ request.form.password }}" id="pass">
+      <label>Confirm Password</label>
+      <input type="password" name="confirm_password" id="cpass">
+    </div>
+    <div class="row" id="login-button">
+      <input class="btn btn-primary" type="submit" value="Register">
+      <a href="login">Login</a>
+    </div>
+    {% if error %}
+    <p><strong>{{ error }}</strong></p>
+    {% endif %}
+  </form>
+</div>
 {% endblock %}

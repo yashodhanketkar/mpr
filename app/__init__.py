@@ -21,9 +21,25 @@ def create_app():
         with app.app_context():
             init_db()
 
-    from .blueprints import auth, cross_performance, home, performance, predictor, selector
+    from .blueprints import (
+        auth,
+        cross_performance,
+        dashboard,
+        home,
+        performance,
+        predictor,
+        selector,
+    )
 
-    for _bp in (auth, cross_performance, home, performance, predictor, selector):
+    for _bp in (
+        auth,
+        cross_performance,
+        home,
+        performance,
+        predictor,
+        selector,
+        dashboard,
+    ):
         app.register_blueprint(_bp.bp)
 
     return app
