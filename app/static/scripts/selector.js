@@ -10,7 +10,7 @@ $(document).ready(function () {
             $('input:radio[name="Precision"][value="prec3"]').prop('checked', true),
             $('input:radio[name="Recall"][value="rec3"]').prop('checked', true),
             $('input:radio[name="ROC"][value="roc3"]').prop('checked', true),
-            $('input:radio[name="Time"][value="time2"]').prop('checked', true)
+            $('input:radio[name="Time"][value="normal"]').prop('checked', true)
         }
     )
 })

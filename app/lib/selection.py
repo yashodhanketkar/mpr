@@ -9,10 +9,9 @@ and saves the best model for selected database.
 import os
 import shutil
 
+from .data_formatter import name_generator
 from .eval import get_selected_model
 from .models import run_model
-from .data_formatter import name_generator
-
 
 # def name_generator(file_path):
 #     """This function produces file name from file path provided by user

@@ -1,3 +1,10 @@
+"""update_models.py
+
+This module generates/updates the default models. The module packs the
+model in pickle file for future use.
+"""
+
+
 import pickle
 
 from sklearn import ensemble, neighbors, neural_network, svm, tree
@@ -5,6 +12,7 @@ from sklearn import ensemble, neighbors, neural_network, svm, tree
 
 def gen_model():
     """This function makes the models
+
     Returns:
         models (list): The list of tuple of model name and model
     """
@@ -39,6 +47,9 @@ def pack_models(models):
 
     Args:
         models (list): The list of tuple of model name and model
+
+    Returns:
+        None
     """
     models_list = models
     with open(r"app\lib\parameters\default_models.sav", "wb") as model_file:
@@ -46,6 +57,4 @@ def pack_models(models):
 
 
 if __name__ == "__main__":
-    pack_models(
-        gen_model()
-    )
+    pack_models(gen_model())

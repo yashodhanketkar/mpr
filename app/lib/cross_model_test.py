@@ -76,9 +76,7 @@ def test_against_database(model_path, database_1, database_2):
         (x_data_1, y_data_1, data_1_name),
         (x_data_2, y_data_2, data_2_name),
     ):
-        performance_status.append(
-            prediction_performance(model_name, data_name, model_clf, x, y)
-        )
+        performance_status.append(prediction_performance(model_name, data_name, model_clf, x, y))
     performance_result = performance_status
     return performance_result
 
@@ -114,7 +112,5 @@ def test_all_models(model_paths, datasets):
     for model in model_paths:
         performance = []
         for i in range(0, len(datasets), 2):
-            performance += test_against_database(
-                model, datasets[0 + i], datasets[1 + i]
-            )
+            performance += test_against_database(model, datasets[0 + i], datasets[1 + i])
         store_cross_performance(model, performance)

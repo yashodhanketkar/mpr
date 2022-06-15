@@ -6,10 +6,11 @@ name of best model for the selected database.
 """
 
 
-import copy
 import json
 
 from sklearn import metrics
+
+from .weightage import get_weightage, default_weights
 
 
 def get_best_model_name(best_model):
@@ -26,29 +27,8 @@ def get_best_model_name(best_model):
     return best_model_name
 
 
-def assign_metrics_rank(key, pred_list, rank):
-    """Assigns ranks by sorting metric performance.
-
-    Args:
-        key (str): The name of metric to be ranked
-        pred_list (list): The list of dictionaries consist of model data
-        rank (list): The list of ranks
-    """
-    rank_list = []
-    val_list = [item[key] for item in pred_list]
-    sort_list = sorted(val_list, reverse=True)
-    for val_item in val_list:
-        i = 0
-        for sort_item in sort_list:
-            i += 1
-            if val_item == sort_item:
-                rank_list.append(i)
-    for i, rank_item in enumerate(rank_list):
-        rank[i][key] = rank_item
-
-
-def get_metrics_rank(file_name, prediction_list, y_target):
-    """Get list of metrics and create list of ranks based on metrics
+def get_metrics_values(file_name, prediction_list, y_target):
+    """Get list of metrics and create list of values based on metrics
     performance.
 
     Args:
@@ -57,8 +37,8 @@ def get_metrics_rank(file_name, prediction_list, y_target):
         y_target (series): The pandas series of actual values
 
     Returns:
-        ranks (list): The list of dictionary of models name and metrics
-                      rank
+        models (list): The list of dictionary of models name and metrics
+                       values
     """
     models = []
     for item in prediction_list:
@@ -73,21 +53,26 @@ def get_metrics_rank(file_name, prediction_list, y_target):
                 "pred_time": item[2] / len(y_target),
             }
         )
+
     with open(rf"model\performance\{file_name}.json", "w") as json_file:
         json.dump(models, json_file)
-    ranks = copy.deepcopy(models)
-    for item in ["accuracy", "f1", "precision", "recall", "roc", "pred_time"]:
-        assign_metrics_rank(item, models, ranks)
-    return ranks
+
+    for model in models:
+        for _attr, _val in model.items():
+            if _attr == "name":
+                continue
+            model[_attr] = round(_val, 6)
+
+    return models
 
 
-def get_score(metrics_rank, weights=None):
+def get_score(metrics_value, weights=None):
     """This function ets the list of dictionary of model name and
-    metrics rank to score model by returning weighted sum of metrics.
+    metrics values to score model by returning weighted sum of metrics.
 
     Args:
-        metrics_rank (list): The list of dictionary of model name and
-                             metrics rank.
+        metrics_values (list): The list of dictionary of model name and
+                               metrics values.
         weights (list): The dictionary of weights provided by user. If
                         not provided use default values.
 
@@ -96,23 +81,25 @@ def get_score(metrics_rank, weights=None):
                                total score.
 
     """
-    if weights is None:
-        with open(r"app\lib\parameters\default_param.json", "r") as json_file:
-            weights = json.load(json_file)
+    if not weights:
+        weights = default_weights()
 
+    weightage = get_weightage(weights)
     weighted_score = []
-    for item in metrics_rank:
+
+    for item in metrics_value:
         weighted_score.append(
             {
                 "name": item["name"],
-                "score": item["accuracy"] * weights["accuracy"]
-                + item["f1"] * weights["f1"]
-                + item["precision"] * weights["precision"]
-                + item["recall"] * weights["recall"]
-                + item["roc"] * weights["roc"]
-                + item["pred_time"] * weights["pred_time"],
+                "score": item["accuracy"] * weightage["accuracy"]
+                + item["f1"] * weightage["f1"]
+                + item["precision"] * weightage["precision"]
+                + item["recall"] * weightage["recall"]
+                + item["roc"] * weightage["roc"]
+                - item["pred_time"] * (weightage["pred_time"] ** 2),
             }
         )
+
     return weighted_score
 
 
@@ -122,8 +109,8 @@ def get_selected_model(file_name, prediction_list, y_target, weights=None):
 
     Args:
         file_name (str): The name of dataset
-        prediction_list (list): The list of dictionary of model name and
-            metrics
+        prediction_list (list): The list of dictionary of model name
+                                and metrics
         y_target (array): The array of actual label of testing data
         weights (dict): The dictionary of weights provided by user
 
@@ -132,9 +119,9 @@ def get_selected_model(file_name, prediction_list, y_target, weights=None):
                                score
 
     """
-    metrics_rank = get_metrics_rank(file_name, prediction_list, y_target)
-    model_score = get_score(metrics_rank, weights)
+    metrics_values = get_metrics_values(file_name, prediction_list, y_target)
+    model_score = get_score(metrics_values, weights)
     selected_model = sorted(model_score, key=lambda x: x["score"])
-    best_model = selected_model[0]
+    best_model = selected_model[-1]
     best_model_name = get_best_model_name(best_model)
     return best_model_name
