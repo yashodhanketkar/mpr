@@ -1,0 +1,27 @@
+.home-section {
+
+    .section-title {
+        position: sticky;
+        top: 0;
+        color: $secondary-color;
+        background-color: $secondary-bgcolor;
+        font-size: 2rem;
+        
+        &:hover {
+            color: lighten($secondary-color, 50%);
+        }
+
+        &::selection{
+            background-color: $primary-bgcolor;
+            color: $primary-color;
+        }
+    }
+    
+    .section-text {
+        background-color: $primary-bgcolor;
+    }
+}
+
+.home-section > * {
+    padding: 1rem;
+}

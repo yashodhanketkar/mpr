@@ -1,0 +1,76 @@
+.predictor-form {
+
+    input[type="submit"] {
+        @include custom-button-style;
+        display: flex;
+        justify-content: center;
+        border-radius: .5rem;
+        font-size: 1.5rem;
+        height: 3rem;
+        width: 8rem;
+    }
+
+    br {
+        width: 100%;
+    }
+}
+
+.predictions-table {
+    margin-left: 1rem;
+    text-align: center;
+
+    &, &>thead {
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+    }
+
+    th,
+    td {
+        padding: 1rem;
+    }
+
+    tr {
+        height: 3rem;
+        border-bottom: 0.01rem solid $primary-bgcolor;
+    }
+
+    thead {
+        background-color: $secondary-bgcolor;
+        position: sticky;
+        top: 0;
+        color: $secondary-color;
+        @include lighten-decoration;
+    }
+
+    tbody {
+        background-color: $primary-bgcolor;
+        color: $primary-color;
+
+        tr {
+            border-bottom: 0.1rem solid $secondary-bgcolor;
+
+            &:hover {
+                font-weight: 500;
+                background-color: darken($primary-bgcolor, 20%);
+            }
+        }
+
+    }
+
+    td[isPresent="True"] {
+        text-decoration: underline;
+        color: red;
+
+        &:hover {
+            color: saturate(red, 20%);
+        }
+    }
+
+    .table-col-1 {
+        width: 10rem;
+    }
+
+    .table-col-2 {
+        width: 35rem;
+    }
+}

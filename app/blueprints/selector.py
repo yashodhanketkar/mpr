@@ -74,4 +74,4 @@ def selector_display():
     data_url = os.path.join(current_app.config["UPLOAD_FOLDER"], data)
     selected_model = api.train_model(data_url, weights)
     message = f"{selected_model[0]} is most suited model for {selected_model[1]} dataset."
-    return render_template("selector/selector_selected.html", message=message)
+    return render_template("selector/selector_selected.html", message=message, weights=weights)

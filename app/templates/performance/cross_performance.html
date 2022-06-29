@@ -2,8 +2,6 @@
 {% block title %}Cross Performance{% endblock %}
 {% block head %}
   {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/performance.css') }}">
-  <script src="{{ url_for('static', filename='scripts/cross_performance.js') }}"></script>
 {% endblock %}
 {% block content %}
   <div class="container-fluid" id="heading">
@@ -29,6 +27,7 @@
         <option value="{{ data }}">{{ data }}</option>
         {% endfor %}
       </select>
+      <!-- <input type="submit" class="btn btn-secondary" id="performance-button" onclick="dataInputValidator();"> -->
       <input type="submit" class="btn btn-secondary" id="performance-button">
     </form>
   </div>

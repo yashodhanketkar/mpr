@@ -1,25 +1,26 @@
 {% extends "layout.html" %}
 {% block title %}Performance{% endblock %}
 {% block head %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/performance.css') }}">
+{{ super() }}
 {% endblock %}
+
+{% block header %}
+Performance
+{% endblock %}
+
 {% block content %}
-  <div class="container-fluid" id="heading">
-    <h1>Performance</h1>
+<form action="display" method="post" class="performance-form">
+  <div class="form-row">
+    <div class="form-label">Please select model</div>
+    <select name="name" class="form-control" id="performance-select" onchange="this.form.submit()">
+      <option value="empty" selected hidden>Choose here</option>
+      {% for model in model_list %}
+      <option value="{{ model }}">{{ model.split('.')[0] }}</option>
+      {% endfor %}
+    </select>
   </div>
-  <div class="container-fluid" id="main-content">
-    <form action="display" method="post">
-      <label class="badge badge-secondary" id="model-label">Please select model: </label><br>
-      <select name="name" class="form-control" id="performance-select" onchange="this.form.submit()">
-        <option value="empty" selected hidden>Choose here</option>
-        {% for model in model_list %}
-          <option value="{{ model }}">{{ model.split('.')[0] }}</option>
-        {% endfor %}
-      </select>
-    </form>
-  </div>
+</form>
 {% endblock %}
 {% block sidebar %}
-  <p>Select one item from the provided list. Performance chart will be drawn for selected objects.</p>
+<p>Select one item from the provided list. Performance chart will be drawn for selected objects.</p>
 {% endblock %}

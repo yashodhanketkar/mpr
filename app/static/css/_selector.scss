@@ -1,0 +1,54 @@
+.selector-form {
+    .form-row {
+        padding: 0.5rem;
+    }
+
+    .option-row {
+        width: 75%;
+    }
+
+    input[type="submit"], input[type="button"] {
+        @include custom-button-style;
+        justify-content: center;
+        border-radius: .5rem;
+        font-size: 1.5rem;
+        height: 3rem;
+        width: max-content;
+        padding: 0 1rem;
+    }
+
+    .options-label {
+        background-color: $primary-bgcolor;
+        color: $primary-color;
+        width: 7.5rem;
+        height: 2rem;
+        font-size: 1.5rem;
+        justify-content: center;
+        align-items: center;
+        border-radius: .25rem;
+    }
+
+    .form-check-inline {
+        gap: .25rem;
+        max-width: 4.5rem;
+    }
+}
+
+.selector-display {
+    .form-row {
+        width: auto;
+    }
+    a {
+        color: $primary-color;
+
+        &::after {
+            content: 'Go back';
+        }
+
+        &:hover {
+            &::after {
+                content: 'Go to selector';
+            }
+        }
+    }
+}

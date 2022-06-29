@@ -1,49 +1,55 @@
 {% extends "layout.html" %}
 {% block title %}Predictor{% endblock %}
 {% block head %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/predictor.css') }}">
+{{ super() }}
+{% endblock %}
+
+{% block header %}
+Predictor
 {% endblock %}
 {% block content %}
-  <div class="container-fluid" id="heading">
-    <h1>Predictor</h1>
+
+<form action="display" enctype="multipart/form-data" method="post" class="predictor-form">
+  <div class="form-row">
+    <div class="form-label">
+      Select dataset for prediction
+    </div>
+    <select name="data" class="form-control" id="cross-performance-select">
+      <option value="empty" selected hidden>Choose dataset</option>
+      {% for data in data_list %}
+      <option value="{{ data }}">{{ data.split('.')[0] }}</option>
+      {% endfor %}
+    </select>
   </div>
-  <div class="container-fluid" id="main-content">
-    <form action="display" enctype="multipart/form-data" method="post" id="testform">
-      <label class="badge badge-secondary" id="dataset-label">
-        Select dataset for prediction
-      </label>
-      <select name="data" class="form-control" id="cross-performance-select">
-        <option value="empty" selected hidden>Choose dataset</option>
-        {% for data in data_list %}
-          <option value="{{ data }}">{{ data.split('.')[0] }}</option>
-        {% endfor %}
-      </select>
-      <label class="badge badge-secondary" id="model-label">
-        Select model for prediction
-      </label>
-      <select name="model" class="form-control" id="cross-performance-select">
-        <option value="empty" selected hidden>Choose model</option>
-        {% for model in model_list %}
-          <option value="{{ model }}">{{ model.split('.')[0] }}</option>
-        {% endfor %}
-      </select>
-      <input type="submit" value="Submit" class="btn btn-secondary" id="predict-button">
-    </form>
-    <form action="upload" enctype="multipart/form-data" method="post" id="upload-test">
-      <div class="container-fluid" id="file-input">
-        <input name="file" type="file" class="btn btn-light btn-lg" id="upload" onchange="this.form.submit()">
-        <label for="upload">Note: If the dataset is not present click here to upload</label>
-      </div>
-    </form>
+  <div class="form-row">
+    <div class="form-label">
+      Select model for prediction
+    </div>
+    <select name="model" class="form-control" id="cross-performance-select">
+      <option value="empty" selected hidden>Choose model</option>
+      {% for model in model_list %}
+      <option value="{{ model }}">{{ model.split('.')[0] }}</option>
+      {% endfor %}
+    </select>
   </div>
+  <div class="form-row">
+    <input class="input-button" type="submit" value="Submit" id="predict-button">
+  </div>
+</form>
+<form action="upload" enctype="multipart/form-data" method="post" id="upload-test" class="predictor-form">
+  <div class="form-row">
+    <input name="file" type="file" class="file-input-button" id="upload" onchange="this.form.submit()">
+    Note: If the dataset is not present <label id="upload" for="upload">click here</label> to upload
+  </div>
+</form>
 {% endblock %}
+
 {% block sidebar %}
-  <p>User is required to select one item each from following list:
-    <ol>
-      <li>Stored datasets</li>
-      <li>Best models selected</li>
-    </ol>
-    After selecting both objects submit the form.
-  </p>
+<p>User is required to select one item each from following list:
+<ol>
+  <li>Stored datasets</li>
+  <li>Best models selected</li>
+</ol>
+After selecting both objects submit the form.
+</p>
 {% endblock %}

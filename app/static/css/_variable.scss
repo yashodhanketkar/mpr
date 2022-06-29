@@ -1,0 +1,75 @@
+$primary-color: hsl(0, 0%, 20%);
+$secondary-color: hsl(0, 0%, 75%);
+
+$primary-bgcolor: hsl(0, 0%, 95%);
+$secondary-bgcolor: hsl(0, 0%, 25%);
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin test-border($color-border) {
+    border: 0.1rem dashed $color-border;
+}
+
+@mixin lighten-decoration {
+    text-decoration: none;
+    color: $secondary-color;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    
+    &:hover {
+        color: lighten($secondary-color, 80%);
+    }
+    
+        &::selection {
+            background-color: $primary-bgcolor;
+            color: $primary-color;
+        }
+}
+
+@mixin max-index-link {
+    @include lighten-decoration();
+    z-index: 5;
+}
+
+@mixin nav-foot-fix {
+    display: flex;
+    position: fixed;
+    z-index: 3;
+    width: 100%;
+    background: $secondary-bgcolor;
+    color: $secondary-color;
+}
+
+@mixin box-shadow-black {
+    outline: none !important;
+    border: .1rem solid $secondary-bgcolor;
+    box-shadow: 0 0 1rem $secondary-bgcolor;
+}
+
+@mixin custom-button-style {
+    background-color: $secondary-bgcolor;
+    color: $secondary-color;
+    border: none;
+
+    &:hover,
+    &:active,
+    &:focus-visible {
+        @include box-shadow-black;
+        background-color: $secondary-bgcolor;
+        color: lighten($secondary-color, 80%);
+    }
+
+    &:disabled {
+        background-color: lighten($secondary-bgcolor, 10%);
+        outline: none !important;
+        box-shadow: none;
+
+        &:hover {
+            color: $secondary-color;
+        }
+    }
+}

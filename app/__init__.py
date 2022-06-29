@@ -14,6 +14,12 @@ def create_app():
     with app.app_context():
         configure()
 
+    from .util.assets import bundles
+    from flask_assets import Environment
+
+    assets = Environment(app)
+    assets.register(bundles)
+
     app.config.from_mapping(DATABASE=os.path.join(app.instance_path, "mpr.sqlite"))
     if not os.path.isfile(app.config["DATABASE"]):
         from .db import init_db

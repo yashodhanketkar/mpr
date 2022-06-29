@@ -1,28 +1,30 @@
 {% extends "layout.html" %}
 {% block title %}Performance Display{% endblock %}
 {% block head %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/performance.css') }}">
+{{ super() }}
 {% endblock %}
+
+{% block header %}
+Performance Display
+{% endblock %}
+
 {% block content %}
-  <div class="container-fluid" id="heading">
-    <h1>Performance Display</h1>
+<form action="display" method="post">
+  <div class="form-row">
+    <div class="form-label">Please select model</div>
+    <select name="name" class="form-control" id="performance-select" onchange="this.form.submit()">
+      <option value="empty" selected hidden>Choose here</option>
+      {% for model in model_list %}
+      <option value="{{ model }}">{{ model.split('.')[0] }}</option>
+      {% endfor %}
+    </select>
   </div>
-  <div class="container-fluid" id="main-content">
-    <form action="display" method="post">
-      <label class="badge badge-secondary" id="model-label">Please select model: </label><br>
-      <select name="name" class="form-control" id="performance-select" onchange="this.form.submit()">
-        <option value="empty" selected hidden>Choose here</option>
-        {% for model in model_list %}
-          <option value="{{ model }}">{{ model.split('.')[0] }}</option>
-        {% endfor %}
-      </select>
-    </form>
-    <div id="chart">
-      <embed id="chart-embed" type="image/svg+xml" src="{{ performance_plot|safe }}">
-    </div>
-  </div>
+</form>
+<div class="chart">
+  <embed class="chart-embed" type="image/svg+xml" src="{{ performance_plot|safe }}">
+  <embed class="chart-embed" type="image/svg+xml" src="{{ performance_plot|safe }}">
+</div>
 {% endblock %}
 {% block sidebar %}
-  <p>Select one item from the provided list. Performance chart will be drawn for selected objects.</p>
+<p>Select one item from the provided list. Performance chart will be drawn for selected objects.</p>
 {% endblock %}

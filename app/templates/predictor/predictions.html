@@ -1,47 +1,34 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block head %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/predictor.css') }}">
+{{ super() }}
 {% endblock %}
+
+{% block header %}
+Predictions
+{% endblock %}
+
 {% block content %}
-  <div class="container-fluid" id="heading">
-    <h1>Predictions</h1>
-  </div>
-  <div class="container-fluid" id="main-content">
-    <table class="table table-striped table-bordered" id="prediction-results">
-      <caption>List of predictions</caption>
-      <thead>
-        <tr id="prediction-heads">
-          <th>ID</th>
-          <th>Result</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for key, value in predictions.items() %}
-        {% if value == 'present' %}
-        <tr class="table-danger" id="result">
-        <td id="key">{{ key }}</td>
-        <td id="value">Arrhythmia is detected</td>
-        </tr>
-        {% else %}
-        <tr class="table-light" id="result">
-        <td id="key">{{ key }}</td>
-        <td id="value">Arrhythmia is not detected</td>
-        </tr>
-        {% endif %}
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% block scripts %}
-    <script>
-      $(document).ready(function () {
-        $('#data').DataTable();
-      });
-    </script>
-  {% endblock %}
+<table class="predictions-table">
+  <caption>List of Predictions</caption>
+  <thead>
+    <tr class="table-header-row">
+      <th class="table-col-1">ID</th>
+      <th class="table-col-2">Results</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for key, value in predictions.items() %}
+    <tr class="table-data-row">
+      {% set present = (value == 'present') %}
+      <td class="table-col-1">{{ key }}</td>
+      <td class="table-col-2" isPresent="{{ present }}">Arrhythmia is {% if not present %} not {% endif %} detected</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}
+
 {% block sidebar %}
-  <p>Arrhythmia is detected in {{ arr_present }} out of {{ prediction_length }} cases.</p>
+<p>Arrhythmia is detected in {{ arr_present }} out of {{ prediction_length }} cases.</p>
 {% endblock %}
