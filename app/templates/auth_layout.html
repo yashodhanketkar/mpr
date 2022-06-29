@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {% block head %}
+
+  {% assets "home_css" %}
+  <link rel="stylesheet" href="{{ ASSET_URL }}">
+  {% endassets %}
+
+  {% assets "home_js" %}
+  <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+  {% endassets %}
+
+  <title>
+    {% block title %}
+    {% endblock %}
+  </title>
+
+  {% endblock %}
+</head>
+
+<body onload="passwordValidator();">
+  <a href="/" class="site-title">Weightage Based Model Selection System</a>
+  <div class="site-auth">
+    <header>
+      {% block header %}
+      {% endblock %}
+    </header>
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+  </div>
+
+  <footer>
+    <div class="right-footer">2022 © WBMSS</div>
+  </footer>
+</body>

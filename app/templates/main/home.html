@@ -1,115 +1,79 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block head %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{{ super() }}
 {% endblock %}
+
+{% block header %}
+Weightage Based Model Selection System
+{% endblock %}
+
+
 {% block content %}
-  <div class="container-fluid" id="heading">
-    <h1>Weightage Based Model Selection System</h1>
+<section class="home-section" id="selector">
+  <div class="section-title">Selector</div>
+  <div class="section-text">
+    <p>This page takes data in csv file format. Following algorithms are used on dataset to train models.</p>
+    <ul>
+      <li>Decison Tree</li>
+      <li>K-Nearest Neighbour</li>
+      <li>Multilayer Perceptron</li>
+      <li>Random Forest</li>
+      <li>Support Vector Machines</li>
+    </ul>
+    <p>After training and selection of most-suited model, model name is displayed to user.</p>
   </div>
-  <div class="container-fluid" id="main-content">
-    <!-- Logged in as <b>{{ session.username }}</b> -->
-    <div id="accordion">
-      <div class="card">
-        <div class="card-header" id="headingOne">
-          <h5 class="mb-0">
-            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              <h2>Selector</h2>
-            </button>
-          </h5>
-        </div>
-    
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-          <div class="card-body">
-            <p>This page takes data in csv file format. Following algorithms are used on dataset to train models.</p>
-            <ul>
-              <li>Decison Tree</li>
-              <li>K-Nearest Neighbour</li>
-              <li>Multilayer Perceptron</li>
-              <li>Random Forest</li>
-              <li>Support Vector Machines</li>
-            </ul>
-            <p>After training and selection of most-suited model, model name is displayed to user.</p>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingTwo">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              <h2>Predictor</h2>
-            </button>
-          </h5>
-        </div>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-          <div class="card-body">
-            <p>
-              This page provides predictions on user provided datasets. This page contains two lists for selection purposes.
-              <ul>
-                <li>A list of datasets previously uploaded by the user.</li>
-                <li>The list contains the best models obtained from previous datasets.</li>
-              </ul>
-              Users are allowed to select one dataset and one model for testing, the application will provide a table of predictions with help of these two objects.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingThree">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              <h2>Performance</h2>
-            </button>
-          </h5>
-        </div>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-          <div class="card-body">
-            <p>
-              This page provides a user list of the best models obtained from previous datasets for selection. After selection of model the page will display performance metrics of model. The performance metrics used are:
-              <ul>
-                <li>Accuracy score</li>
-                <li>F1 score</li>
-                <li>Precision score</li>
-                <li>Recall score</li>
-                <li>Area under ROC</li>
-                <li>Prediction time</li>
-              </ul>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingFour">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-              <h2>Cross-Performance</h2>
-            </button>
-          </h5>
-        </div>
-        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-          <div class="card-body">
-            <p>
-              This page provides users with two lists.
-              <ul>
-                <li>List of models trained on previous datasets.</li>
-                <li>List of datasets which are used for training said datasets</li>
-              </ul>
-              The user is required to select one model from the model list and two datasets from the dataset list. The page will provide a comparative chart of performance metrics based on provided objects.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+</section>
 
-    {% if item %}
-      {% for i in item %}
-        {{ i }}<br>
-      {% endfor %}
-    {% endif %}
-
+<section class="home-section" id="predictor">
+  <div class="section-title">Predictor</div>
+  <div class="section-text">
+    <p>
+      This page provides predictions on user provided datasets. This page contains two lists for selection purposes.
+    <ul>
+      <li>A list of datasets previously uploaded by the user.</li>
+      <li>The list contains the best models obtained from previous datasets.</li>
+    </ul>
+    Users are allowed to select one dataset and one model for testing, the application will provide a table of
+    predictions with help of these two objects.
+    </p>
   </div>
+</section>
+
+<section class="home-section" id="performance">
+  <div class="section-title">Performance</div>
+  <div class="section-text">
+    <p>
+      This page provides a user list of the best models obtained from previous datasets for selection. After selection
+      of model the page will display performance metrics of model. The performance metrics used are:
+    <ul>
+      <li>Accuracy score</li>
+      <li>F1 score</li>
+      <li>Precision score</li>
+      <li>Recall score</li>
+      <li>Area under ROC</li>
+      <li>Prediction time</li>
+    </ul>
+    </p>
+  </div>
+</section>
+
+<section class="home-section" id="cross-performance">
+  <div class="section-title">Cross-Performance</div>
+  <div class="section-text">
+    <p>
+      This page provides users with two lists.
+    <ul>
+      <li>List of models trained on previous datasets.</li>
+      <li>List of datasets which are used for training said datasets</li>
+    </ul>
+    The user is required to select one model from the model list and two datasets from the dataset list. The page will
+    provide a comparative chart of performance metrics based on provided objects.
+    </p>
+  </div>
+</section>
 {% endblock %}
+
 {% block sidebar %}
-  <p>This sidebar will provide information and guidance to users.</p>
+<p>This sidebar will provide information and guidance to users.</p>
 {% endblock %}

@@ -1,0 +1,69 @@
+.site-title {
+    @include nav-foot-fix;
+    @include flex-center;
+    @include max-index-link;
+    top: 0;
+    justify-content: center;
+    height: 3rem;
+    font-size: 1.5rem;
+}
+
+.site-auth {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    height: 100%;
+    display: grid;
+    gap: 2rem;
+    grid-template-areas: "header""main";
+
+    header {
+        @include flex-center;
+        grid-area: header;
+        height: min-content;
+        padding-top: 3rem;
+        font-size: 2rem;
+        font-weight: 500;
+    }
+
+    main {
+        @include flex-center;
+        flex-direction: column;
+        grid-area: main;
+        height: max-content;
+        overflow: auto;
+        font-size: 1.5rem;
+    }
+
+    form {
+        @include flex-center;
+        flex-direction: column;
+    }
+
+    form>* {
+        width: 100%;
+    }
+
+    a {
+        color: $primary-color;
+
+        &:hover {
+            text-decoration: none;
+            color: lighten($primary-color, 10%);
+
+            &::before {
+                content: 'To ';
+            }
+
+            &::after {
+                content: ' page...';
+            }
+        }
+
+    }
+
+    input[type="submit"] {
+        @include custom-button-style;
+        font-size: 1.5rem;
+        height: 3rem;
+    }
+}

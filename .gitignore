@@ -10,3 +10,6 @@ app/static/data/
 app/static/test/
 
 desktop.ini
+
+gen/
+.webassets-cache/

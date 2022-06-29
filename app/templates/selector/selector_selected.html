@@ -1,19 +1,37 @@
 {% extends "layout.html" %}
 {% block title %}Selector{% endblock %}
 {% block head %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/selector.css') }}">
+{{ super() }}
 {% endblock %}
+
+{% block header %}
+Selector
+{% endblock %}
+
 {% block content %}
-  <div class="container-fluid" id="heading">
-    <h1>Selector</h1>
+{% set preference_dict = {1: "Highest", 2: "High", 3: "Default", 4: "Low", 5: "Lowest"} %}
+<div class="selector-display">
+  <div class="form-row">
+    <strong>{{ message }}</strong>
+    <br>
+    The model is selected with respect to following user selected preferences.
+    {% for metric, preference in weights.items() %}
+    <br>
+    <div class="weight-label">
+      {% if metric == "pred_time" %}
+      <strong>{{ loop.index }}. Time:</strong> &nbsp; {{ "Default" if preference == 'normal' else preference.title() }}
+      {% else %}
+      <strong>{{ loop.index }}. {{ metric.title() }}:</strong> &nbsp; {{ preference_dict[preference] }}
+      {% endif %}
+    </div>
+    {% endfor %}
   </div>
-  <div class="container-fluid" id="main-content">
-        <label class="badge badge-light" id="selected-model">{{ message }}</label>
-      </div>
-    </form>
+  <div class="form-row">
+    <a href="/selector" id="upload"></a>
   </div>
+</div>
 {% endblock %}
+
 {% block sidebar %}
-  <p>The model is trained and stored for future use. Upload new records/datasets if present to generate new models.</p>
+<p>The model is trained and stored for future use. Upload new records/datasets if present to generate new models.</p>
 {% endblock %}
