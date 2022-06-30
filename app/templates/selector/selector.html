@@ -56,6 +56,12 @@ Selector
     {% endfor %}
   </div>
 </form>
+<form action="upload" enctype="multipart/form-data" method="post" id="upload-test" class="selector-form">
+  <div class="form-row">
+    <input name="file" type="file" class="file-input-button" id="upload" onchange="this.form.submit()">
+    Note: If the dataset is not present <label id="upload" for="upload">click here</label> to upload
+  </div>
+</form>
 {% endblock %}
 
 {% block sidebar %}

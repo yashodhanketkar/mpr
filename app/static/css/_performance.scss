@@ -1,4 +1,49 @@
+.performance-form {
+    input[type="submit"] {
+        @include custom-button-style;
+        justify-content: center;
+        border-radius: .5rem;
+        font-size: 1.5rem;
+        height: 3rem;
+        width: max-content;
+        padding: 0 1rem;
+    }
+}
+
 .chart {
     display: flex;
     height: 80%;
+
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1vh;
+
+    .dash-item {
+        display: flex;
+        height: 75vh;
+        margin-bottom: 5rem;
+    }
+}
+
+.cross-performance-display {
+    .form-row {
+        width: auto;
+    }
+
+    a {
+        color: $primary-color;
+
+        &::after {
+            content: 'Go back';
+        }
+
+        &:hover {
+            &::after {
+                content: 'Go to cross-performance selector';
+            }
+        }
+    }
 }

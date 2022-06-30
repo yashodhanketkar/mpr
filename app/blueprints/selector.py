@@ -73,5 +73,6 @@ def selector_display():
     weights["pred_time"] = request.form["Time"]
     data_url = os.path.join(current_app.config["UPLOAD_FOLDER"], data)
     selected_model = api.train_model(data_url, weights)
+    weights["pred_time"] = request.form["Time"]  # re-assigns value, temporary fix for a bug
     message = f"{selected_model[0]} is most suited model for {selected_model[1]} dataset."
     return render_template("selector/selector_selected.html", message=message, weights=weights)

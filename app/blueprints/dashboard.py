@@ -10,6 +10,7 @@ bp = Blueprint("dashboard", __name__, url_prefix="/dashboard")
 
 
 @bp.route("/")
+@login_required
 def dashboard():
     """This displays graphical performance metrics of the best suited
     model for available training datasets.
