@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template
 
 
 def create_app():
@@ -47,5 +47,16 @@ def create_app():
         dashboard,
     ):
         app.register_blueprint(_bp.bp)
+    
+    from werkzeug.exceptions import BadRequest
+
+    def handle_not_found(BadRequest):
+        return render_template("errors/404.html")
+
+    def handle_unauthorized(BadRequest):
+        return render_template("errors/401.html")
+
+    app.register_error_handler(404, handle_not_found)
+    app.register_error_handler(401, handle_unauthorized)
 
     return app

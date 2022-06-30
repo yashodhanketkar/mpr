@@ -1,0 +1,15 @@
+{% extends "auth_layout.html" %}
+{% block title %}Login{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block header %}
+401 - Unauthorized Access
+{% endblock %}
+
+{% block content %}
+Login or create a new user account to visit this page.
+<a href="/auth/login">Login</a>
+<a href="/auth/register">Registration</a>
+{% endblock %}

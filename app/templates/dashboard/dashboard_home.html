@@ -3,13 +3,20 @@
 {% block head %}
 {{ super() }}
 {% endblock %}
+
+{% block header %}
+  Dashboard 
+{% endblock %}
+
 {% block content %}
-<div class="container-fluid" id="heading">
-  <h1>
-    Dashboard <a href="/dashboard/update" id="cross-performance-update"><span class="material-icons">refresh</span></a>
-  </h1>
-</div>
-<div class="container-fluid" id="main-content">
-    <h4>No data available. Please click on refresh icon next to heading!</h4>
-</div>
+<form action="post" class="performance-form">
+  <div class="form-row">
+    <!-- <a href="/dashboard/update" id="cross-performance-update"><span class="material-icons">refresh</span></a> -->
+    <input type="submit" href="/dashboard/update" id="update" value="Generate">
+  </div>
+</form>
+  {% endblock %}
+
+{% block sidebar %}
+  Click on button to generate cross-performance results.
 {% endblock %}

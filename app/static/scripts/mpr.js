@@ -34,6 +34,6 @@ function dataInputValidator() {
 }
 
 
-$(document).ready(function () {
+// $(document).ready(function () {
     
-})
+// })

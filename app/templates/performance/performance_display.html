@@ -9,7 +9,7 @@ Performance Display
 {% endblock %}
 
 {% block content %}
-<form action="display" method="post">
+<form action="display" method="post" class="performance-form">
   <div class="form-row">
     <div class="form-label">Please select model</div>
     <select name="name" class="form-control" id="performance-select" onchange="this.form.submit()">
@@ -21,7 +21,6 @@ Performance Display
   </div>
 </form>
 <div class="chart">
-  <embed class="chart-embed" type="image/svg+xml" src="{{ performance_plot|safe }}">
   <embed class="chart-embed" type="image/svg+xml" src="{{ performance_plot|safe }}">
 </div>
 {% endblock %}

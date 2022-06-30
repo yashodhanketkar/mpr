@@ -4,7 +4,7 @@ Provides the authorization functionality to the web application.
 """
 import functools
 
-from flask import Blueprint, flash, redirect, render_template, request, session, url_for
+from flask import Blueprint, flash, redirect, render_template, request, session, url_for, abort
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.db import get_db
@@ -122,8 +122,7 @@ def login_required(view):
     def wrapped_view(**kwargs):
         if "username" not in session:
             print("No username in session")
-            return redirect(url_for("auth.unauth"))
-
+            abort(401)
         return view(**kwargs)
 
     return wrapped_view

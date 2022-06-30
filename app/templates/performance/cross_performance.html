@@ -1,44 +1,50 @@
 {% extends "layout.html" %}
 {% block title %}Cross Performance{% endblock %}
 {% block head %}
-  {{ super() }}
+{{ super() }}
 {% endblock %}
+
+{% block header %}
+Cross Performance
+{% endblock %}
+
 {% block content %}
-  <div class="container-fluid" id="heading">
-    <h1>Cross Performance</h1>
-  </div>
-  <div class="container-fluid" id="main-content">
-    <form action="display" method="post">
-      <label class="badge badge-secondary" id="model-label">Please select model: </label> <br>
-      <select name="model" class="form-control" id="cross-performance-select-model">
-        <option value="empty" selected hidden>Choose here</option>
-        {% for models in model_list %}
-        <optgroup label="{{ models[0] }}">
+<form action="display" class="performance-form" method="post">
+  <div class="form-row">
+    <div class="form-label">Please select model:</div>
+    <select name="model" class="form-control" id="cross-performance-select-model">
+      <option value="empty" selected hidden>Select Model</option>
+      {% for models in model_list %}
+      <optgroup label="{{ models[0] }}">
         {% for model in models[1] %}
         <option value="{{ (models[0], model) }}">{{ model }}</option>
         {% endfor %}
-        </optgroup>
-        {% endfor %}
-      </select>
-      <label class="badge badge-secondary" id="dataset-label">Please select two datasets: </label> <br>
-      <select name="dataset" class="form-control" id="cross-performance-select-data" multiple>
-        <option value="empty" selected hidden>Choose here</option>
-        {% for data in data_list %}
-        <option value="{{ data }}">{{ data }}</option>
-        {% endfor %}
-      </select>
-      <!-- <input type="submit" class="btn btn-secondary" id="performance-button" onclick="dataInputValidator();"> -->
-      <input type="submit" class="btn btn-secondary" id="performance-button">
-    </form>
+      </optgroup>
+      {% endfor %}
+    </select>
   </div>
+  <div class="form-row">
+    <div class="form-label">Please select two datasets:</div>
+    <select name="dataset" class="form-control" id="cross-performance-select-data" multiple>
+      <option value="empty" selected hidden>Select Dataset</option>
+        {% for data in data_list %}
+          <option value="{{ data }}">{{ data }}</option>
+        {% endfor %}
+    </select>
+  </div>
+  <div class="form-row">
+    <input type="submit" id="performance-button">
+  </div>
+</form>
 {% endblock %}
+
 {% block sidebar %}
-  <p>
-    Select number of items based on following instructions.
-    <ul>
-      <li>One item from the provided model list.</li>
-      <li>Two items from the provided dataset list.</li>
-    </ul>
-    Comparative performance charts will be drawn for selected objects.
-  </p>
+<p>
+  Select number of items based on following instructions.
+<ol>
+  <li>One item from the provided model list.</li>
+  <li>Two items from the provided dataset list.</li>
+</ol>
+Comparative performance charts will be drawn for selected objects.
+</p>
 {% endblock %}
