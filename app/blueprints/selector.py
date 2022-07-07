@@ -8,7 +8,7 @@ from flask import Blueprint, current_app, redirect, render_template, request, ur
 from werkzeug.utils import secure_filename
 
 from .. import api
-from ..helper import get_stored_data
+from ..util.helper import get_stored_data
 from .auth import login_required
 
 bp = Blueprint("selector", __name__, url_prefix="/selector")
@@ -22,7 +22,7 @@ def weight_register(*mets):
 
     Returns:
         weights (dict): The dictionary of the metrics and thier
-                        preference.
+        preference.
     """
     weights = {}
     for metric in mets:
@@ -37,13 +37,13 @@ def selector():
 
     Returns:
         selector.html (html_template): Provides selection page with
-                                       file_input field
+        file_input field
     """
     data_list = get_stored_data("data")
     return render_template("selector/selector.html", data_list=data_list)
 
 
-@bp.route("/upload", methods=("GET", "POST"))
+@bp.route("/upload", methods=["POST"])
 @login_required
 def upload():
     """This function provides the user ability to upload dataset for
@@ -58,7 +58,7 @@ def upload():
     return redirect(url_for("selector.selector"))
 
 
-@bp.route("/display", methods=("GET", "POST"))
+@bp.route("/display", methods=["POST"])
 @login_required
 def selector_display():
     """Displays the selected model to user in label field.

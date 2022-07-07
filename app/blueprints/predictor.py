@@ -8,7 +8,7 @@ from flask import Blueprint, current_app, redirect, render_template, request, ur
 from werkzeug.utils import secure_filename
 
 from .. import api
-from ..helper import get_best_model, get_stored_data
+from ..util.helper import get_best_model, get_stored_data
 from .auth import login_required
 
 bp = Blueprint("predictor", __name__, url_prefix="/predictor")
@@ -24,14 +24,14 @@ def predictor():
 
     Return:
         predictor.html (html template): Returns the predictor page with
-                                        required data.
+        required data.
     """
     model_list = get_best_model()
     data_list = get_stored_data("test")
     return render_template("predictor/predictor.html", data_list=data_list, model_list=model_list)
 
 
-@bp.route("/upload", methods=("GET", "POST"))
+@bp.route("/upload", methods=["POST"])
 @login_required
 def upload_test_file():
     """This function provides the user ability to upload dataset for
@@ -39,7 +39,7 @@ def upload_test_file():
 
     Returns:
         predictor.html (html template): Redirects to the predictor
-                                        page.
+        page.
     """
     uploaded_file = request.files["file"]
     destination = os.path.join(current_app.config["TEST_FOLDER"], secure_filename(uploaded_file.filename))
@@ -47,7 +47,7 @@ def upload_test_file():
     return redirect(url_for("predictor.predictor"))
 
 
-@bp.route("/display", methods=("GET", "POST"))
+@bp.route("/display", methods=["POST"])
 @login_required
 def predictor_display():
     """This page displays the results of the preedictions

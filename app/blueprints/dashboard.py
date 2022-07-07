@@ -2,7 +2,7 @@ import os
 
 from flask import Blueprint, redirect, render_template, url_for
 
-from ..helper import get_cross_performance_graph, save_cross_performance_data
+from ..util.helper import get_cross_performance_graph, save_cross_performance_data
 from .auth import login_required
 
 
@@ -37,7 +37,7 @@ def empty():
     return render_template("dashboard/dashboard_home.html")
 
 
-@bp.route("/update", methods=("GET", "POST"))
+@bp.route("/update", methods=["POST"])
 @login_required
 def get_cross_performance_files():
     """This function allows user to generate cross-performance results.

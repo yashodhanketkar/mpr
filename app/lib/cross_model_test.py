@@ -14,7 +14,7 @@ import time
 import pandas as pd
 from sklearn import metrics
 
-from .data_formatter import convert_to_dual_class, name_generator
+from .data_formatter import name_generator, xy_generator
 
 
 def prediction_performance(model_name, data_name, model_clf, data, y_target):
@@ -61,15 +61,16 @@ def test_against_database(model_path, database_1, database_2):
                                      provided datasets
     """
     performance_status = []
+    model_name = "_".join(name_generator(model_path))
+
     data_1_name = name_generator(database_1)[1]
     data_1 = pd.read_csv(database_1, header=None)
-    x_data_1, y_data_1 = data_1.iloc[:, :-1].copy(), data_1[187].copy()
-    y_data_1 = convert_to_dual_class(y_data_1)
+    x_data_1, y_data_1 = xy_generator(data_1)
+
     data_2_name = name_generator(database_2)[1]
     data_2 = pd.read_csv(database_2, header=None)
-    x_data_2, y_data_2 = data_2.iloc[:, :-1].copy(), data_2[187].copy()
-    y_data_2 = convert_to_dual_class(y_data_2)
-    model_name = "_".join(name_generator(model_path))
+    x_data_2, y_data_2 = xy_generator(data_2)
+
     with open(model_path, "rb") as model_file:
         model_clf = pickle.load(model_file)
     for x, y, data_name in (

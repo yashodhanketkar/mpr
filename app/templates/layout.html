@@ -30,8 +30,9 @@
   <nav>
     <a href="/">Home</a>
     {% if session.userrole %}
-    <a href="/predictor/">Predictor</a>
+    <a href="/reports/">Reports</a>
     {% if session.userrole == "ADMIN" %}
+    <a href="/predictor/">Predictor</a>
     <a href="/selector/">Selector</a>
     <a href="/performance/">Performance</a>
     <a href="/cross_performance/">Cross-Performance</a>

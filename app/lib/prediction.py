@@ -9,6 +9,7 @@ import pickle
 
 import numpy as np
 import pandas as pd
+from .data_formatter import xy_generator
 
 
 def make_prediction(data, model):
@@ -59,7 +60,7 @@ def get_prediction(data_path=None, model_path=None):
     if model_path is None:
         raise ValueError
     data = pd.read_csv(data_path, header=None)
-    x_value = data.iloc[:, :-1].copy()
+    x_value, _ = xy_generator(data)
     best_model = pickle.load(open(model_path, "rb"))
     pred_list = []
     for i in range(len(x_value)):

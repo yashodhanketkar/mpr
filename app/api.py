@@ -1,6 +1,6 @@
 """api.py
 
-This is API for attms
+This is API for wbmss
 """
 
 

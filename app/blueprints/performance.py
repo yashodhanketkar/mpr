@@ -7,7 +7,7 @@ import os
 
 from flask import Blueprint, current_app, redirect, render_template, request, url_for
 
-from ..helper import get_best_model, plot_performance
+from ..util.helper import get_best_model, plot_performance
 from .auth import login_required
 
 bp = Blueprint("performance", __name__, url_prefix="/performance")
@@ -20,13 +20,13 @@ def performance():
 
     Returns:
         performance.html (html_template): Returns performance page
-                                          with required data.
+        with required data.
     """
     model_list = get_best_model()
     return render_template("performance/performance.html", model_list=model_list)
 
 
-@bp.route("/display", methods=("POST", "GET"))
+@bp.route("/display", methods=["POST"])
 @login_required
 def performance_display():
     """Provides the performance display page to the application.
