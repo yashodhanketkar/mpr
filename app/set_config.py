@@ -12,6 +12,7 @@ BASE_DIR = os.path.join(pathlib.Path(__file__).parent.parent.resolve())
 
 MODELS_FOLDER = os.path.join(BASE_DIR, "model")
 UPLOAD_FOLDER = os.path.join(APP_DIR, r"static\data")
+PATIENT_FOLDER = os.path.join(APP_DIR, r"static\patients")
 TEST_FOLDER = os.path.join(APP_DIR, r"static\test")
 
 
@@ -22,7 +23,8 @@ def configure():
     current_app.config["BASBASE_DIR"] = BASE_DIR
     current_app.config["MODELS_FOLDER"] = MODELS_FOLDER
     current_app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+    current_app.config["PATIENT_FOLDER"] = PATIENT_FOLDER
     current_app.config["TEST_FOLDER"] = TEST_FOLDER
-    for _FOLDER in (UPLOAD_FOLDER, TEST_FOLDER, MODELS_FOLDER):
+    for _FOLDER in (UPLOAD_FOLDER, PATIENT_FOLDER, TEST_FOLDER, MODELS_FOLDER):
         if not os.path.isdir(_FOLDER):
             os.mkdir(_FOLDER)

@@ -13,7 +13,8 @@ import pickle
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-from .data_formatter import convert_to_dual_class
+# from .data_formatter import convert_to_dual_class
+from .data_formatter import xy_generator
 
 
 def make_models(spec=None):
@@ -78,8 +79,7 @@ def run_model(data_path, temp_path, file_name):
     models_list = make_models()
     prediction_list = []
     data = pd.read_csv(data_path, header=None)
-    x_value, y_value = data.iloc[:, :-1].copy(), data[187].copy()
-    y_value = convert_to_dual_class(y_value)
+    x_value, y_value = xy_generator(data)
     x_train, x_test, y_train, y_test = train_test_split(x_value, y_value, test_size=0.25, random_state=42)
     dump_path = os.path.join(temp_path, rf"models\{file_name}")
     for model in models_list:

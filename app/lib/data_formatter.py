@@ -34,3 +34,21 @@ def name_generator(file_path, _crossref=True):
     #     return clf_name
     dir_name = file_path.split("\\")[-2]
     return dir_name, clf_name
+
+
+def xy_generator(data):
+    """Generates the x and y value
+    
+    longdesc
+    
+    Args:
+        data (dataframe): Pandas dataframe values
+    
+    Returns:
+        x_value (dataframe): X values, the trainig values
+        y_value (series): Y values, the labels for training value
+    """
+    label_index = len(data.columns) - 1
+    x_value, y_value = data.iloc[:,:-1].copy(), data[label_index].copy()
+    y_value = convert_to_dual_class(y_value)
+    return x_value, y_value
