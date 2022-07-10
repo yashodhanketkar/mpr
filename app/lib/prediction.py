@@ -36,7 +36,7 @@ def pred_formatter(predictions):
 
     Returns:
         pred_dict (dict): The dictionary produced by evaluating
-                          predictions
+        predictions
     """
     pred_dict = {}
     for index, prediction in enumerate(predictions):
@@ -45,12 +45,14 @@ def pred_formatter(predictions):
     return pred_dict
 
 
-def get_prediction(data_path=None, model_path=None):
+def get_prediction(data_path=None, model_path=None, is_testing_set=False):
     """This function takes data path and returns prediction results
 
     Args:
         data_path (str): The data path provided by user
         model_path (str): The model path provided by user
+        is_labeled (bool): Whether data is labeled or not. Used for
+        testing
 
     Returns:
         prediction_dict (dict): The prediction result
@@ -60,7 +62,10 @@ def get_prediction(data_path=None, model_path=None):
     if model_path is None:
         raise ValueError
     data = pd.read_csv(data_path, header=None)
-    x_value, _ = xy_generator(data)
+    if is_testing_set:
+        x_value = data
+    else:
+        x_value, _ = xy_generator(data)
     best_model = pickle.load(open(model_path, "rb"))
     pred_list = []
     for i in range(len(x_value)):

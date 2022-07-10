@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block title %}Report{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block header %}
+Report: {{ patient.name }}
+{% endblock %}
+
+{% block content %}
+<table class="patients-table">
+  <tbody>
+    <tr class="fields">
+      <td class="field">Name</td>
+      <td class="field-value">{{ patient.name }}</td>
+    </tr>
+    <tr class="fields">
+      <td class="field">ID</td>
+      <td class="field-value">{{ patient.id }}</td>
+    </tr>
+    <tr class="fields">
+      <td class="field">Admission Date</td>
+      <td class="field-value">{{ patient.admission_date }}</td>
+    </tr>
+    <tr class="fields">
+      <td class="field">Result</td>
+      <td class="field-value">{{ patient.result }}</td>
+    </tr>
+    <tr class="fields">
+      <td class="field">ECG Report</td>
+      <td class="field-value"><a href="{{ url_for('patients.download', filename=patient.report_url ) }}">{{ patient.report_url }}</a></td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}
+
+{% block sidebar %}
+This page displays the report of a patient
+{% endblock %}

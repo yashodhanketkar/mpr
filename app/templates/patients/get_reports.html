@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
-{% block title %}Reports{% endblock %}
+{% block title %}Get Reports{% endblock %}
 {% block head %}
   {{ super() }}
 {% endblock %}
 
 {% block header %}
-  Reports
+  Get Reports
 {% endblock %}
 
 {% block content %}
@@ -13,6 +13,12 @@
 <form action="display" enctype="multipart/form-data" method="post" class="predictor-form">
   <div class="form-row">
     Select Name of the patient
+    <select name="patient" class="form-control" id="cross-performance-select">
+      <option value="empty" selected hidden>Choose a model</option>
+      {% for patient in patient_list %}
+        <option value="{{ patient }}">{{ patient.name }}</option>
+      {% endfor %}
+    </select>
   </div>
   <div class="form-row">
     Select the model to use
@@ -22,6 +28,9 @@
         <option value="{{ model }}">{{ model.split('.')[0] }}</option>
       {% endfor %}
     </select>
+  </div>
+  <div class="form-row">
+    <input class="input-button" type="submit" value="Submit" id="predict-button">
   </div>
 </form>
 

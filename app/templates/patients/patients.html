@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %} Patients {% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block header %}
+Patients
+{% endblock %}
+
+{% block content %}
+<form action="display" enctype="multipart/form-data" method="post" class="patients-form">
+  <div class="form-label page-links">Please use one of following button</div>
+  <div class="page-links">
+    <input type="button" class="page-1-link" value="Registration" onclick="window.location='registration';">
+    <input type="button" class="page-2-link" value="Reports" onclick="window.location='get_reports';">
+  </div>
+</form>
+{% endblock %}
+
+{% block sidebar %}
+This page provides link for patient registration and report generation.
+{% endblock %}

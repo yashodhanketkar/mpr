@@ -45,8 +45,8 @@ def train_model(data_path: str, weights: dict) -> tuple:
     return get_model(data_path, weights)
 
 
-def get_predictions(model_path: str, data_path: str) -> dict:
-    return get_prediction(data_path, model_path)
+def get_predictions(model_path: str, data_path: str, is_testing_set: bool = False) -> dict:
+    return get_prediction(data_path, model_path, is_testing_set)
 
 
 def model_cross_performance_specific_model(model_path: str, data_1_path: str, data_2_path: str) -> tuple:
