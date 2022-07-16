@@ -9,35 +9,38 @@ Patients
 {% endblock %}
 
 {% block content %}
-<form action="display" enctype="multipart/form-data" method="post" class="patients-form">
+<form action="registration" enctype="multipart/form-data" method="post" class="patients-form">
   <div class="form-row">
     <div class="form-label field-labels">
       First Name
     </div>
-    <input type="text" class="field">
+    <input type="text" class="field" placeholder="John" name="fname" value="{{ request.form.fname }}">
   </div>
   <div class="form-row">
     <div class="form-label field-labels">
       Last Name
     </div>
-    <input type="text" class="field">
+    <input type="text" class="field" placeholder="Doe" name="lname" value="{{ request.form.lname }}">
   </div>
   <div class="form-row">
     <div class="form-label field-labels">
       Admission Date
     </div>
-    <input type="datetime-local" class="field">
+    <input type="datetime-local" class="field" name="date" value="{{ request.form.date }}">
   </div>
   <div class="form-row">
     <div class="form-label field-labels">
       Report
     </div>
-    <input type="file" class="field">
+    <!-- <input type="file" class="field" name="report" value="{{ request.form.report }}"> -->
+    <input type="file" class="field" name="report">
+    <!-- <input type="text" class="field" name="report" value="temp"> -->
   </div>
   <div class="form-row button-row">
     <input type="submit" value="Submit">
     <input type="reset" value="Clear" onclick="patientFileInput();">
   </div>
+  <div class="form-row">{{ message }}</div>
 </form>
 {% endblock %}
 

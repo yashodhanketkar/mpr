@@ -4,15 +4,15 @@ Gets the report of the certain patients.
 """
 
 import json
-from msilib.schema import tables
 import os
-import pandas as pd
 
-from flask import Blueprint, current_app, render_template, request, send_from_directory, send_from_directory
+from flask import Blueprint, current_app, render_template, request, send_from_directory, send_from_directory, flash
+from werkzeug.utils import secure_filename
 
 from app.lib.prediction import get_prediction
 
-from ..gen_patients import get_patients, example
+from ..gen_patients import get_patients, example, Patient
+from ..util.db import get_db
 from ..util.helper import get_best_model, get_stored_data
 from .auth import login_required
 
@@ -34,10 +34,38 @@ def reports():
     return render_template("patients/get_reports.html", patient_list=patient_list, model_list=model_list)
 
 
-@bp.route("/registration")
+@bp.route("/registration", methods=["GET", "POST"])
 @login_required
 def patient_registration():
-    return render_template("patients/registration.html")
+    error = None
+    message = ''
+    if request.method == "POST":
+        fname = request.form["fname"]
+        if not fname: fname = "John"
+        lname = request.form["lname"]
+        if not lname: lname = "Doe"
+        admission_date = request.form["date"]
+        report = request.files["report"]
+        if report:
+            filename = secure_filename(report.filename)
+        url = os.path.join(current_app.config["PATIENT_FOLDER"], filename)
+        print(fname, lname, admission_date, url)
+        _patient = Patient(url, fname, lname, admission_date)
+        print(_patient)
+        message = f"{_patient.name} registered succesfully"
+        db = get_db()
+
+        if error is None:
+            try:
+                db.execute(
+                    "INSERT INTO patients(id, name, admission_date, report_url) VALUES (?,?,?,?)",
+                    (_patient.id, _patient.name, _patient.admission_date, _patient.report_url),
+                )
+                db.commit()
+            except db.IntegrityError:
+                error = "Information provided is wrong"
+                return error
+    return render_template("patients/registration.html", message=message)
 
 
 @bp.route("/display", methods=["POST"])

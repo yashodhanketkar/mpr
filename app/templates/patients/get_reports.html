@@ -14,7 +14,7 @@
   <div class="form-row">
     Select Name of the patient
     <select name="patient" class="form-control" id="cross-performance-select">
-      <option value="empty" selected hidden>Choose a model</option>
+      <option value="empty" selected hidden>Choose a patient</option>
       {% for patient in patient_list %}
         <option value="{{ patient }}">{{ patient.name }}</option>
       {% endfor %}

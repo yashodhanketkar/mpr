@@ -1,13 +1,13 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 
+from flask import redirect, url_for
+
 
 try:
-    from .util.db import get_db
     from .lib import get_prediction
 except ImportError:
     print("Error occured during import")
-    from util.db import get_db
     from lib import get_prediction
 
 
@@ -36,10 +36,6 @@ class Patient:
         return '{'+f'"name": "{self.name}", "admission_date": "{self.admission_date}", "id": "{self.id}", "report_url": "{self.report_url}"'+'}'
 
 
-def create_patients():
-    db = get_db()
-
-
 def get_patients():
     Jim = example()
     return [Jim]
@@ -48,8 +44,8 @@ def get_patients():
 def example():
     Jimmy = Patient(
         "patient_1.csv",
-        "Patient_1",
-        "Hospital",
+        "John",
+        "Doe",
         '2022-01-12 13:56:12'
     )
     print(Jimmy.name)
