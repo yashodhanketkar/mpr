@@ -125,18 +125,24 @@ def plot_performance(data, is_cross_performance=False):
 
     custom_style = pygal.style.Style(background="transparent", opacity=".7", opacity_hover="1.0", title_font_size=25)
     bar_plot = pygal.Bar(style=custom_style, fill=True)
+    line_plot = pygal.Line(syle=custom_style, fill=False)
 
     if is_cross_performance:
         bar_plot.title = f"Performance of {model_names[model]} model trained on {dataset_name}"
+        line_plot.title = f"Performance of {model_names[model]} model trained on {dataset_name}"
     else:
         bar_plot.title = f"Performance of models for {dataset_name}"
+        line_plot.title = f"Performance of models for {dataset_name}"
     bar_plot.x_labels = metrics
+    line_plot.x_labels = metrics
 
     for i, name in enumerate(names_list):
         bar_plot.add(name, performance_list[i])
+        line_plot.add(name, performance_list[i])
     bar_plot_data = bar_plot.render_data_uri()
+    line_plot_data = line_plot.render_data_uri()
 
-    return bar_plot_data
+    return bar_plot_data, line_plot_data
 
 
 def save_cross_performance_data():

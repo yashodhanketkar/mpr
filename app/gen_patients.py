@@ -35,6 +35,20 @@ class Patient:
     def __repr__(self) -> str:
         return '{'+f'"name": "{self.name}", "admission_date": "{self.admission_date}", "id": "{self.id}", "report_url": "{self.report_url}"'+'}'
 
+@dataclass
+class dbPatient:
+    object: dict
+    id: str = field(init=False, repr=True)
+    name: str = field(init=False, repr=True)
+    admission_date: datetime = field(init=False, repr=True)
+    report_url: str = field(init=False, repr=True)
+
+    def __post_init__(self):
+        self.id = object["id"]
+        self.name = object["name"]
+        self.admission_date = object["admission_date"]
+        self.report_url = object["report_url"]
+
 
 def get_patients():
     Jim = example()

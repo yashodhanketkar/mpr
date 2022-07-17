@@ -9,6 +9,8 @@ and saves the best model for selected database.
 import os
 import shutil
 
+from datetime import datetime
+
 from .data_formatter import name_generator
 from .eval import get_selected_model
 from .models import run_model

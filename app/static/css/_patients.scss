@@ -80,5 +80,19 @@
       }
     }
   }
+}
 
+#reports-return-link {
+  color: $primary-color;
+  padding-top: 2rem;
+
+  &::after {
+    content: 'Return';
+  }
+
+  &:hover {
+    &::after {
+      content: 'Get Reports';
+    }
+  }
 }

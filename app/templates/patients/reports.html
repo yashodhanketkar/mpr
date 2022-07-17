@@ -31,6 +31,10 @@ Report: {{ patient.name }}
       <td class="field">ECG Report</td>
       <td class="field-value"><a href="{{ url_for('patients.download', filename=patient.report_url ) }}">{{ patient.report_url }}</a></td>
     </tr>
+    <tr class="fields">
+      <td></td>
+      <td class="field-value" style="padding-top: 2.5rem;"><a id="reports-return-link" href="get_reports"></a></td>
+    </tr>
   </tbody>
 </table>
 {% endblock %}
