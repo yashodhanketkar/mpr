@@ -94,11 +94,11 @@ def get_weightage(parameter_pref):
 
     Args:
         parameter_pref (dict): The dictionary contain user preference
-                               for parameters.
+        for parameters.
 
     Returns:
         weightage_perf (dict): The dictionary containing the generated
-                               weightage.
+        weightage.
     """
 
     # Get time's weightage while seperating it from other five
@@ -144,11 +144,7 @@ def default_weights():
 
 
 def example():
-    """Example of weightage
-
-    Returns:
-        None
-    """
+    """Example of weightage"""
     weightage = default_weights()
     print(weightage)
 

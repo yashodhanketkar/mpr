@@ -12,7 +12,6 @@ from flask import abort, current_app, send_file
 
 from app.lib.cross_model_test import test_all_models
 
-
 model_names = {
     "DT": "Decision Tree",
     "KNN": "K-Nearest Neighbours",
@@ -83,7 +82,7 @@ def get_stored_data(req_dir):
 
     Returns:
         data_dirs (path): Path to sub-directories or files present in
-                          requested directory
+        requested directory
     """
     up_dir = os.path.join(current_app.config["APP_DIR"], "static")
     abs_path = os.path.join(up_dir, req_dir)
@@ -98,11 +97,13 @@ def plot_performance(data, is_cross_performance=False):
     Args:
         data (list/tuple): A list or tuple consist of model performance
         is_cross_performance (bool): To run in performance or
-                                     cross-performance mode
+        cross-performance mode
 
     Returns:
         bar_plot_data (image): Image of the interactive bar plot based
-                               on data recieved
+        on data recieved
+        line_plot_data (image): Image of the interactive line plot based
+        on data recieved
     """
     dataset_name = ""
     names_list = []
@@ -148,9 +149,6 @@ def plot_performance(data, is_cross_performance=False):
 def save_cross_performance_data():
     """Runs cross performance on best-models and training datasets.
     Stores the results for future use.
-
-    Returns:
-        None
     """
     data_dir = [os.path.join(current_app.config["UPLOAD_FOLDER"], data_path) for data_path in get_stored_data("data")]
     model_dir = [

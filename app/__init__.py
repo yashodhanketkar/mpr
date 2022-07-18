@@ -4,9 +4,9 @@ from flask import Flask, render_template
 from flask_assets import Environment
 
 from .blueprints import auth, cross_performance, dashboard, home, patients, performance, predictor, selector
-from .util.db import init_db
 from .set_config import configure
 from .util.assets import bundles
+from .util.db import init_db
 
 
 def handle_unauthorized(e):

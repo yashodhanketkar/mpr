@@ -10,7 +10,7 @@ import json
 
 from sklearn import metrics
 
-from .weightage import get_weightage, default_weights
+from .weightage import default_weights, get_weightage
 
 
 def get_best_model_name(best_model):
@@ -38,7 +38,7 @@ def get_metrics_values(file_name, prediction_list, y_target):
 
     Returns:
         models (list): The list of dictionary of models name and metrics
-                       values
+        values
     """
     models = []
     for item in prediction_list:
@@ -72,13 +72,13 @@ def get_score(metrics_value, weights=None):
 
     Args:
         metrics_values (list): The list of dictionary of model name and
-                               metrics values.
+        metrics values.
         weights (list): The dictionary of weights provided by user. If
-                        not provided use default values.
+        not provided use default values.
 
     Returns:
         weighted_score (list): The list of dictionary of model name and
-                               total score.
+        total score.
 
     """
     if not weights:
@@ -110,13 +110,13 @@ def get_selected_model(file_name, prediction_list, y_target, weights=None):
     Args:
         file_name (str): The name of dataset
         prediction_list (list): The list of dictionary of model name
-                                and metrics
+        and metrics
         y_target (array): The array of actual label of testing data
         weights (dict): The dictionary of weights provided by user
 
     Returns:
         best_model_name (str): The name of best of selected based on
-                               score
+        score
 
     """
     metrics_values = get_metrics_values(file_name, prediction_list, y_target)

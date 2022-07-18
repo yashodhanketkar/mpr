@@ -1,3 +1,10 @@
+"""db.py
+
+Creates database for the system. Also works as connection for said
+database.
+"""
+
+
 import sqlite3
 
 from flask import current_app, g

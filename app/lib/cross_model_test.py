@@ -58,7 +58,7 @@ def test_against_database(model_path, database_1, database_2):
 
     Returns:
         performance_results (tuple): The performance of model against
-                                     provided datasets
+        provided datasets
     """
     performance_status = []
     model_name = "_".join(name_generator(model_path))
@@ -89,9 +89,6 @@ def store_cross_performance(model_path, performance):
     Args:
         model_path (path): The path of the model
         performance (list): The list of performance parameters
-
-    Returns:
-        None
     """
     model_name = model_path.split("\\")[-1].split(".")[0]
     save_dir = os.path.join(os.getcwd(), rf"model\cross_performance\{model_name}.json")
@@ -106,9 +103,6 @@ def test_all_models(model_paths, datasets):
     Args:
         model_paths (path): Path of directory where models are stored
         datasets (list): List of dataset path to be tested
-
-    Returns:
-        None
     """
     for model in model_paths:
         performance = []

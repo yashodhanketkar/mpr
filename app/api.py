@@ -80,7 +80,7 @@ def get_cross_performance(dataset_performance: str) -> list:
 
     Returns:
         performance (list): Cross performance metrics obtained from json
-                            file
+        file
     """
     file_relative_path = rf"model\cross_performance\{dataset_performance}.json"
     performance = get_json_data(file_relative_path)

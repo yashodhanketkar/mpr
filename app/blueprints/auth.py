@@ -4,7 +4,7 @@ Provides the authorization functionality to the web application.
 """
 import functools
 
-from flask import Blueprint, Response, flash, redirect, render_template, request, session, url_for, abort
+from flask import Blueprint, Response, abort, flash, redirect, render_template, request, session, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from ..util.db import get_db

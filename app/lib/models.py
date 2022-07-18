@@ -13,7 +13,6 @@ import pickle
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-# from .data_formatter import convert_to_dual_class
 from .data_formatter import xy_generator
 
 
@@ -47,7 +46,7 @@ def run_classifier(model, x_train, y_train, x_test, temp_path):
         Name (str): The name of model
         y_pred (array): Predicted values from test data
         test_time_ms (time): Amount of time requried in miliseconds to
-                             get predictions from test data
+        get predictions from test data
     """
     name, clf = model
     clf.fit(x_train, y_train)
@@ -72,7 +71,7 @@ def run_model(data_path, temp_path, file_name):
 
     Returns:
         prediction_list (list): The list of model name, predictions
-                                array and testing time
+        array and testing time
         y_test_array (array): The array of label for test data
 
     """

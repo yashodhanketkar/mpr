@@ -5,7 +5,7 @@ Gets the report of the certain patients.
 
 import os
 
-from flask import Blueprint, current_app, render_template, request, send_from_directory, send_from_directory
+from flask import Blueprint, current_app, render_template, request, send_from_directory
 from werkzeug.utils import secure_filename
 
 from app.lib.prediction import get_prediction
@@ -21,31 +21,48 @@ bp = Blueprint("patients", __name__, url_prefix="/patients")
 @bp.route("/")
 @login_required
 def patients():
+    """Landing page for patients route.
+
+    Returns:
+        patients.html (html_template): Patients page
+    """
     return render_template("patients/patients.html")
 
 
 @bp.route("/get_reports")
 @login_required
 def reports():
+    """Get reports page
+
+    Returns:
+        get_reports.html (html_template): Patient selection page
+    """
     db = get_db()
     patient_list = db.execute("SELECT name FROM patients").fetchall()
-    model_list = get_best_model() 
+    model_list = get_best_model()
     return render_template("patients/get_reports.html", patient_list=patient_list, model_list=model_list)
 
 
 @bp.route("/registration", methods=["GET", "POST"])
 @login_required
 def patient_registration():
+    """Registration page
+
+    Returns:
+        registration.html (html_template): Patients registration page.
+    """
     error = None
-    message = ''
+    message = ""
     if request.method == "POST":
         fname = request.form["fname"]
         lname = request.form["lname"]
         admission_date = request.form["date"]
         report = request.files["report"]
 
-        if not fname: fname = "John"
-        if not lname: lname = "Doe"
+        if not fname:
+            fname = "John"
+        if not lname:
+            lname = "Doe"
         if report:
             filename = secure_filename(report.filename)
             destination = os.path.join(current_app.config["PATIENT_FOLDER"], filename)
@@ -72,6 +89,11 @@ def patient_registration():
 @bp.route("/display", methods=["POST"])
 @login_required
 def reports_dispaly():
+    """Reports page
+
+    Returns:
+        reports.html (html_template): Patients results page
+    """
     patient_name = request.form["patient"]
     model = request.form["model"]
     db = get_db()
@@ -88,11 +110,19 @@ def reports_dispaly():
     best_model_dir = os.path.join(current_app.config["MODELS_FOLDER"], "best_model")
     model_url = os.path.join(best_model_dir, model)
     result = get_prediction(patient_report_path, model_url, is_testing_set=True)
-    patient["result"] = "Negative" if result[0] == 'absent' else "Positive"
+    patient["result"] = "Negative" if result[0] == "absent" else "Positive"
     return render_template("patients/reports.html", patient=patient)
 
 
-@bp.route('/uploads/<path:filename>', methods=['GET', 'POST'])
+@bp.route("/uploads/<path:filename>", methods=["GET", "POST"])
 @login_required
 def download(filename):
+    """File uploader
+
+    Args:
+        filename (string): Name of file to be uploaded
+
+    Returns:
+        file (any): Sends file from PATIENT_FOLDER
+    """
     return send_from_directory(directory=current_app.config["PATIENT_FOLDER"], path=filename, filename=filename)
