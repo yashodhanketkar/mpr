@@ -3,10 +3,10 @@ import os
 from flask import Flask, render_template
 from flask_assets import Environment
 
-from .blueprints import auth, cross_performance, dashboard, home, performance, predictor, selector, reports
-from .util.db import init_db
+from .blueprints import auth, cross_performance, dashboard, home, patients, performance, predictor, selector
 from .set_config import configure
 from .util.assets import bundles
+from .util.db import init_db
 
 
 def handle_unauthorized(e):
@@ -42,7 +42,7 @@ def create_app():
         with app.app_context():
             init_db()
 
-    for _bp in (auth, cross_performance, home, performance, predictor, selector, dashboard, reports):
+    for _bp in (auth, cross_performance, home, performance, predictor, selector, dashboard, patients):
         app.register_blueprint(_bp.bp)
 
     app.register_error_handler(404, handle_not_found)

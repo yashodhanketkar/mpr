@@ -48,8 +48,9 @@ def cross_performance_display():
     else:
         return abort(416)
     model_cross_performance = api.model_cross_performance_specific_model(model_path, dataset1_path, dataset2_path)
-    cross_performance_plot = plot_performance(model_cross_performance, True)
+    cross_performance_plot, helper_plot = plot_performance(model_cross_performance, True)
     return render_template(
         "performance/cross_performance_display.html",
         cross_performance_plot=cross_performance_plot,
+        helper_plot=helper_plot,
     )

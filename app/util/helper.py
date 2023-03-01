@@ -12,7 +12,6 @@ from flask import abort, current_app, send_file
 
 from app.lib.cross_model_test import test_all_models
 
-
 model_names = {
     "DT": "Decision Tree",
     "KNN": "K-Nearest Neighbours",
@@ -83,7 +82,7 @@ def get_stored_data(req_dir):
 
     Returns:
         data_dirs (path): Path to sub-directories or files present in
-                          requested directory
+        requested directory
     """
     up_dir = os.path.join(current_app.config["APP_DIR"], "static")
     abs_path = os.path.join(up_dir, req_dir)
@@ -98,11 +97,13 @@ def plot_performance(data, is_cross_performance=False):
     Args:
         data (list/tuple): A list or tuple consist of model performance
         is_cross_performance (bool): To run in performance or
-                                     cross-performance mode
+        cross-performance mode
 
     Returns:
         bar_plot_data (image): Image of the interactive bar plot based
-                               on data recieved
+        on data recieved
+        line_plot_data (image): Image of the interactive line plot based
+        on data recieved
     """
     dataset_name = ""
     names_list = []
@@ -125,26 +126,29 @@ def plot_performance(data, is_cross_performance=False):
 
     custom_style = pygal.style.Style(background="transparent", opacity=".7", opacity_hover="1.0", title_font_size=25)
     bar_plot = pygal.Bar(style=custom_style, fill=True)
+    line_plot = pygal.Line(syle=custom_style, fill=False)
 
     if is_cross_performance:
         bar_plot.title = f"Performance of {model_names[model]} model trained on {dataset_name}"
+        line_plot.title = f"Performance of {model_names[model]} model trained on {dataset_name}"
     else:
         bar_plot.title = f"Performance of models for {dataset_name}"
+        line_plot.title = f"Performance of models for {dataset_name}"
     bar_plot.x_labels = metrics
+    line_plot.x_labels = metrics
 
     for i, name in enumerate(names_list):
         bar_plot.add(name, performance_list[i])
+        line_plot.add(name, performance_list[i])
     bar_plot_data = bar_plot.render_data_uri()
+    line_plot_data = line_plot.render_data_uri()
 
-    return bar_plot_data
+    return bar_plot_data, line_plot_data
 
 
 def save_cross_performance_data():
     """Runs cross performance on best-models and training datasets.
     Stores the results for future use.
-
-    Returns:
-        None
     """
     data_dir = [os.path.join(current_app.config["UPLOAD_FOLDER"], data_path) for data_path in get_stored_data("data")]
     model_dir = [

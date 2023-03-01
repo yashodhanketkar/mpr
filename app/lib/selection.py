@@ -13,26 +13,9 @@ from .data_formatter import name_generator
 from .eval import get_selected_model
 from .models import run_model
 
-# def name_generator(file_path):
-#     """This function produces file name from file path provided by user
-
-#     Args:
-#         file_path (str): File path provided by user
-
-#     Returns:
-#         name_str (str): Name of file generated form file path
-#     """
-#     name = file_path.split("\\")[-1].split(".")[0]
-#     name_str = f"{name}"
-#     return name_str
-
 
 def make_directories(file_name):
-    """This function makes directories to store models
-
-    Returns:
-        None
-    """
+    """This function makes directories to store models"""
     cwd = os.getcwd()
     for path in [
         rf"model\models\{file_name}",
@@ -55,9 +38,6 @@ def save_model(name, model_path, file_name):
         name (str): Name of selected model
         model_path (str): The directory where models are stored
         file_name (str): Name of dataset
-
-    Returns:
-        None
     """
     model_temp_path = os.path.join(model_path, rf"models\{file_name}")
     model_save_path = os.path.join(model_path, r"best_model")

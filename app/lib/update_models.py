@@ -47,9 +47,6 @@ def pack_models(models):
 
     Args:
         models (list): The list of tuple of model name and model
-
-    Returns:
-        None
     """
     models_list = models
     with open(r"app\lib\parameters\default_models.sav", "wb") as model_file:

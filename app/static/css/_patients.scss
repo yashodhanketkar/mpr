@@ -1,0 +1,98 @@
+.patients-form {
+  @include flex-center;
+  flex-direction: column;
+
+  .form-row {
+    padding: 0.5rem;
+
+  }
+
+  .button-row {
+    @include flex-center;
+    margin-top: 1.5rem;
+    gap: 5rem;
+  }
+
+  .field-labels {
+    font-size: 1.5rem;
+    width: 25%;
+
+    &::after {
+      content: ':',
+    }
+  }
+
+  .field {
+    width: 100%;
+    border-radius: 0.1rem;
+    font-size: 1.5rem;
+    border: 0.1rem solid $primary-color;
+
+    &[noborder] {
+      border: none;
+    }
+  }
+
+
+  input[type="submit"],
+  input[type="reset"],
+  input[type="button"] {
+    @include custom-button-style;
+    justify-content: center;
+    border-radius: .5rem;
+    font-size: 1.5rem;
+    height: 3rem;
+    width: auto(7.5rem, max-content);
+    padding: 0 1rem;
+  }
+
+  .page-links {
+    @include flex-center;
+    gap: .5rem;
+
+    input[type="button"] {
+      @include flex-center;
+      @include custom-button-style;
+      margin-top: 5rem;
+      background-color: $secondary-bgcolor;
+      color: $secondary-color;
+      width: 30rem;
+      height: 30rem;
+    }
+  }
+}
+
+.patients-table {
+  @include flex-center;
+
+  .fields {
+    display: table-row;
+    font-size: 1.5rem;
+    height: 2.5rem;
+
+    .field {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 1rem;
+
+      &::after {
+        content: ':';
+      }
+    }
+  }
+}
+
+#reports-return-link {
+  color: $primary-color;
+  padding-top: 2rem;
+
+  &::after {
+    content: 'Return';
+  }
+
+  &:hover {
+    &::after {
+      content: 'Get Reports';
+    }
+  }
+}
