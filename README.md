@@ -1,6 +1,6 @@
 # Weightage based training, testing, selection and prediction system
 
-----
+---
 
 This is an automated supervised learning system. This system allows users without coding experience to create the best suited model for the prediction task. This system stores the best models for future use. All the other models are also stored for further uses.
 
@@ -28,6 +28,7 @@ Open bash or terminal and enter following commands
 # go to project directory
 cd /path_to_folder/
 ```
+
 Inside main directory enter following commands
 
 ```sh
@@ -38,6 +39,7 @@ venv\Scripts\activate.bat
 # install dependencies in virtual environment
 pip install -r requirements.txt
 ```
+
 This will install all dependencies in virtual environment
 
 ## Configuration
@@ -48,16 +50,16 @@ This will install all dependencies in virtual environment
 
 3. Run following command to generate $secret_token
 
-    ```sh
-    # generate secret token for flask application
-    python -c "import secrets;print(secrets.token_hex(32))"
-    ```
+   ```sh
+   # generate secret token for flask application
+   python -c "import secrets;print(secrets.token_hex(32))"
+   ```
 
 4. Add $secret_token generated to the config file
 
-    ```python
-    SECRETE_KEY=$secret_token
-    ```
+   ```python
+   SECRETE_KEY=$secret_token
+   ```
 
 ## Execute
 
@@ -84,4 +86,5 @@ This will give you following message
 - Use the path provided that is http://127.0.0.1:5000/ inside your preferred web browser
 
 ---
+
 &copy; 2022 - Yashodhan Ketkar
