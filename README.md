@@ -1,90 +1,103 @@
-# Weightage based training, testing, selection and prediction system
+MPR
+===
 
----
+Weightage based training, testing, selection and prediction system
+
+Table of contents
+-----------------
+
+-	[Introduction](#introduction)
+	-	[Dependencies](#dependencies)
+-	[Installation and Usage](#installation-and-usage)
+	-	[Setup](#setup)
+	-	[Configuration](#configuration)
+	-	[Run](#run)
+-	[LICENSE](#license)
+
+Introduction
+------------
 
 This is an automated supervised learning system. This system allows users without coding experience to create the best suited model for the prediction task. This system stores the best models for future use. All the other models are also stored for further uses.
 
 This system employs skit-learns supervised learning models as templates. The application uses web UI with the help of flask module.
 
-## Table of contents
+### Dependencies
 
-[DEPENDENCIES](DEPENDENCIES)\
-[INSTALLATION](INSTALLATION)\
-[LICENSE](LICENSE)
+-	[Python 3](https://www.python.org/downloads/)
+-	[Scikit-learn](https://pypi.org/project/scikit-learn/)[^1]
+-	[Pandas](https://pypi.org/project/pandas/)[^2]
+-	[Pygal](https://pypi.org/project/pygal/)[^3]
+-	[Flask](https://pypi.org/project/Flask/)[^4]
 
-## DEPENDENCIES
+[^1]: Model creation and performance analysis.
 
-- [Python 3](https://www.python.org/downloads/)
-- [Scikit-learn](https://pypi.org/project/scikit-learn/) - This module is used for model creation and performance analysis.
-- [Pandas](https://pypi.org/project/pandas/) - This module is used to handle data structures.
-- [Pygal](https://pypi.org/project/pygal/) - This module is used for generating dynamic charts.
-- [Flask](https://pypi.org/project/Flask/) - This module is used for webUI.
+[^2]: Handling data structures.
 
-## INSTALLATION
+[^3]: Generation of dynamic charts.
 
-Open bash or terminal and enter following commands
+[^4]: Support and rendering of WebUI.
 
-```sh
-# go to project directory
-cd /path_to_folder/
-```
+Installation and Usage
+----------------------
 
-Inside main directory enter following commands
+### Setup
 
-```sh
-# create and activate virtual environment
-python -m venv venv
-venv\Scripts\activate.bat
+Setup the project
 
-# install dependencies in virtual environment
-pip install -r requirements.txt
-```
+1.	Clone this repository into your local machine.
+2.	Move to the project directory. Using `cd mpr`.
+3.	Setup virtual environment using `uv venv`.
+4.	Install dependencies using `uv sync`.
 
-This will install all dependencies in virtual environment
+### Configuration
 
-## Configuration
-
-1. Create new folder **instance**
-
-2. Create new file **config.py** inside instance folder.
-
-3. Run following command to generate $secret_token
-
-   ```sh
-   # generate secret token for flask application
-   python -c "import secrets;print(secrets.token_hex(32))"
-   ```
-
-4. Add $secret_token generated to the config file
-
-   ```python
-   SECRETE_KEY=$secret_token
-   ```
-
-## Execute
-
-Enter following command
+Configuration of environment variables
 
 ```sh
-flask run
+# with make
+-----------
+make setup
+
+# without make
+--------------
+# Create new directory `instance` and create new file `instance/config.py`.
+mkdir instance
+touch instance/config.py
+
+# Generate secret token for flask application
+echo "SECRET_KEY = '$(openssl rand -base64 32)'" > ./instance/config.py
+
+# you can also use following command instead of openssl
+python -c "import secrets;print(secrets.token_hex(32))" # modern systems
+# or
+python3 -c "import secrets;print(secrets.token_hex(32))" # legacy systems
 ```
 
-This will give you following message
+### Run
+
+Run the project in `development | production` mode
 
 ```sh
- * Serving Flask app 'run' (lazy loading)
- * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
-   Use a production WSGI server instead.
- * Debug mode: on
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: ***-***-***
- * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+# with make
+-----------
+# Run the project in development mode
+make dev
+
+# Run the project in production mode
+make run
+
+# without make
+--------------
+# Run the project in development mode
+uv run flask run
+
+# Run the project in production mode
+uv run main
 ```
 
-- Use the path provided that is http://127.0.0.1:5000/ inside your preferred web browser
+LICENSE
+-------
 
----
+This project is licensed under the terms of the [MIT license](./LICENSE). See the [license](./LICENSE) file for details.
 
-&copy; 2022 - Yashodhan Ketkar
+Copyright (c) 2022-2026 Yashodhan Ketkar
